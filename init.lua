@@ -18,3 +18,5 @@ minetest.register_mapgen_script(awg.path .. '/scripts/grass_mapcolors.lua')
 awg: load_script 'plant_tweaks'
 
 awg: load_script 'tundra'
+
+awg: load_script 'cuttings'

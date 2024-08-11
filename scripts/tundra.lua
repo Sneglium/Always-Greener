@@ -138,10 +138,12 @@ minetest.register_decoration({
 awg: register_node('tundra_shrub', {
 	displayname = 'Brush Bush',
 	tiles = {'awg_tundra_shrub.png'},
+	inventory_image = 'awg_tundra_shrub.png',
 	paramtype = 'light',
 	use_texture_alpha = 'clip',
 	drawtype = 'firelike',
 	walkable = false,
+	buildable_to = true,
 	selection_box = {
 		type = 'fixed',
 		fixed = {-0.35, -0.5, -0.35, 0.35, -0.1, 0.35}
@@ -166,7 +168,7 @@ awg: inherit_item('always_greener:tundra_shrub_2', 'tundra_shrub_3', {
 	displayname = 'Turpentine Bush',
 	description = '',
 	tiles = {'awg_tundra_shrub_3.png'},
-	inventory_image = 'awg_tundra_shrub_3.png',
+	inventory_image = 'awg_tundra_shrub_3_inv.png',
 	visual_scale = 1.5,
 	place_param2 = 42,
 	selection_box = {

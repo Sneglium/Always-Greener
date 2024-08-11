@@ -370,6 +370,7 @@ awg: inherit_item('default:junglegrass', 'jungle_grass_short', {
 	tiles = {'awg_jungle_grass_short.png'},
 	groups = {not_in_creative_inventory = 1},
 	drop = 'default:junglegrass',
+	displayname = 'Stubby Jungle Grass',
 	description = ''
 })
 
