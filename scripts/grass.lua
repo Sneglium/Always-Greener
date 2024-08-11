@@ -59,7 +59,8 @@ minetest.override_item('default:dirt_with_grass', {
 })
 
 awg: inherit_item('default:dirt_with_grass', 'dry_dirt_with_grass', {
-	description = awg.gettext('Savanna Dirt with Grass', 'normal'),
+	displayname = 'Savanna Dirt with Grass',
+	description = '',
 	tiles = {
 		'awg_grass.png',
 		{name = 'default_dry_dirt.png', color = 'white'},
@@ -70,14 +71,16 @@ awg: inherit_item('default:dirt_with_grass', 'dry_dirt_with_grass', {
 })
 
 awg: inherit_item('default:dirt_with_grass', 'dirt_with_dead_grass', {
-	description = awg.gettext('Dirt with Dead Grass', 'normal'),
+	displayname = 'Dirt with Dead Grass',
+	description = '',
 	groups = {crumbly = 3, soil = 1},
 	palette = 'awg_dead_grass_colormap.png',
 	color = '#594a28'
 })
 
 awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_grass', {
-	description = awg.gettext('Savanna Dirt with Dead Grass', 'normal'),
+	displayname = 'Savanna Dirt with Dead Grass',
+	description = '',
 	groups = {crumbly = 3, soil = 1},
 	palette = 'awg_dead_grass_colormap.png',
 	color = '#594a28'
@@ -192,24 +195,28 @@ for i = 1, 5 do
 end
 
 awg: inherit_item('default:grass_5', 'grass_6', {
+	description = '',
 	mesh = 'awg_grass_2.obj',
 	tiles = {'awg_grass_6.png'}
 })
 minetest.register_alias('default:grass_6', 'always_greener:grass_6')
 
 awg: inherit_item('default:grass_5', 'grass_7', {
+	description = '',
 	mesh = 'awg_grass_2.obj',
 	tiles = {'awg_grass_7.png'}
 })
 minetest.register_alias('default:grass_7', 'always_greener:grass_7')
 
 awg: inherit_item('default:dry_grass_5', 'dry_grass_6', {
+	description = '',
 	mesh = 'awg_grass_2.obj',
 	tiles = {'awg_grass_6.png'}
 })
 minetest.register_alias('default:dry_grass_6', 'always_greener:dry_grass_6')
 
 awg: inherit_item('default:dry_grass_5', 'dry_grass_7', {
+	description = '',
 	mesh = 'awg_grass_2.obj',
 	tiles = {'awg_grass_7.png'}
 })
@@ -339,7 +346,8 @@ minetest.override_item('default:junglegrass', {
 
 awg: inherit_item('default:junglegrass', 'jungle_grass_flowering', {
 	tiles = {'awg_jungle_grass_flower.png'},
-	description = awg.gettext('Flowering Jungle Grass', 'normal'),
+	displayname = 'Flowering Jungle Grass',
+	description = '',
 	drop = 'always_greener:jungle_grass_flowering',
 	inventory_image = 'awg_jungle_grass_flower_inv.png'
 })
@@ -361,7 +369,8 @@ minetest.register_decoration({
 awg: inherit_item('default:junglegrass', 'jungle_grass_short', {
 	tiles = {'awg_jungle_grass_short.png'},
 	groups = {not_in_creative_inventory = 1},
-	drop = 'default:junglegrass'
+	drop = 'default:junglegrass',
+	description = ''
 })
 
 minetest.register_decoration({
