@@ -5,28 +5,44 @@ minetest.unregister_item 'default:dry_dirt_with_dry_grass'
 minetest.register_alias('default:dirt_with_dry_grass', '')
 minetest.register_alias('default:dry_dirt_with_dry_grass', 'always_greener:dry_dirt_with_grass')
 
-local function get_biome_color(heat, humid)
-	local heat = math.floor((math.max(0, math.min(heat, 100)) / 100) * 16)
-	local humid = math.floor((math.max(0, math.min(humid, 100)) / 100) * 16)
+local function get_biome_color(pos)
+	local biomedat = minetest.get_biome_data(pos)
 	
-	return (16 * humid) + heat
+	local heat = biomedat.heat
+	local humidity = biomedat.humidity
+	
+	if pos.y > 90 then
+		heat = heat - ((pos.y - 90) * 0.45)
+		humidity = humidity - ((pos.y - 90) * 0.2)
+	end
+	
+	local water = minetest.find_node_near(pos, 8, {
+		'default:water_source', 'default:river_water_source',
+		'default:water_flowing', 'default:river_water_flowing'
+	})
+	
+	if water then
+		local dist = pos: distance(water)
+		humidity = humidity + (math.max(0, 8 - dist - math.random(0, 1)) * 4.5)
+	end
+	
+	local heat_scaled = math.floor((math.max(0, math.min(heat, 100)) / 100) * 16)
+	local humidity_scaled = math.floor((math.max(0, math.min(humidity, 100)) / 100) * 16)
+	
+	return math.min(255, (16 * humidity_scaled) + math.min(15, heat_scaled))
 end
 
 local function grass_after_place (pos, placer, itemstack, pointed_thing)
 	if placer: get_player_control().sneak then
 		local node = minetest.get_node(pos)
-		
 		node.param2 = 136
 		minetest.set_node(pos, node)
 		
 		return
 	end
 	
-	local biomedat = minetest.get_biome_data(pos)
-
 	local node = minetest.get_node(pos)
-	
-	node.param2 = get_biome_color(biomedat.heat, biomedat.humidity)
+	node.param2 = get_biome_color(pos)
 	minetest.set_node(pos, node)
 end
 
@@ -49,7 +65,7 @@ minetest.override_item('default:dirt_with_grass', {
 	overlay_tiles = {
 		'',
 		'',
-		{name = 'awg_grass_side.png'}
+		'awg_grass_side.png'
 	},
 	use_texture_alpha = 'blend',
 	paramtype2 = 'color',
@@ -75,7 +91,17 @@ awg: inherit_item('default:dirt_with_grass', 'dirt_with_dead_grass', {
 	description = '',
 	groups = {crumbly = 3, soil = 1},
 	palette = 'awg_dead_grass_colormap.png',
-	color = '#594a28'
+	color = '#594a28',
+	tiles = {
+		{name = 'default_dirt.png', color = 'white'},
+		{name = 'default_dirt.png', color = 'white'},
+		{name = 'default_dirt.png', color = 'white'}
+	},
+	overlay_tiles = {
+		'awg_dead_grass.png',
+		'',
+		'awg_dead_grass_side.png'
+	}
 })
 
 awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_grass', {
@@ -83,7 +109,17 @@ awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_gras
 	description = '',
 	groups = {crumbly = 3, soil = 1},
 	palette = 'awg_dead_grass_colormap.png',
-	color = '#594a28'
+	color = '#594a28',
+	tiles = {
+		{name = 'default_dry_dirt.png', color = 'white'},
+		{name = 'default_dry_dirt.png', color = 'white'},
+		{name = 'default_dry_dirt.png', color = 'white'}
+	},
+	overlay_tiles = {
+		'awg_dead_grass.png',
+		'',
+		'awg_dead_grass_side.png'
+	}
 })
 
 local caught = 0
@@ -99,12 +135,10 @@ for i, abm in pairs(minetest.registered_abms) do
 			local name = minetest.get_node(above).name
 			local def = minetest.registered_nodes[name]
 			if name ~= 'ignore' and def and not (def.sunlight_propagates or def.paramtype == 'light') then
-				local biomedat = minetest.get_biome_data(pos)
-				
 				if node.name == 'always_greener:dry_dirt_with_grass' then
-					minetest.set_node(pos, {name = 'always_greener:dry_dirt_with_dead_grass', param2 = get_biome_color(biomedat.heat, biomedat.humidity)})
+					minetest.set_node(pos, {name = 'always_greener:dry_dirt_with_dead_grass', param2 = get_biome_color(pos)})
 				else
-					minetest.set_node(pos, {name = 'always_greener:dirt_with_dead_grass', param2 = get_biome_color(biomedat.heat, biomedat.humidity)})
+					minetest.set_node(pos, {name = 'always_greener:dirt_with_dead_grass', param2 = get_biome_color(pos)})
 				end
 			end
 		end
@@ -117,12 +151,10 @@ for i, abm in pairs(minetest.registered_abms) do
 			local above = pos + vector.new(0, 1, 0)
 			if (minetest.get_node_light(above) or 0) < 13 then return end
 			
-			local biomedat = minetest.get_biome_data(pos)
-			
 			local pos2 = minetest.find_node_near(pos, 1, 'group:spreading_dirt_type')
 			if pos2 then
 				local near_node = minetest.get_node(pos2)
-				near_node.param2 = get_biome_color(biomedat.heat, biomedat.humidity)
+				near_node.param2 = get_biome_color(pos)
 				minetest.set_node(pos, near_node)
 				return
 			end
@@ -131,7 +163,7 @@ for i, abm in pairs(minetest.registered_abms) do
 			if name == 'default:snow' then
 				minetest.set_node(pos, {name = 'default:dirt_with_snow'})
 			elseif minetest.get_item_group(name, 'grass') + minetest.get_item_group(name, 'dry_grass') ~= 0 then
-				minetest.set_node(pos, {name = 'default:dirt_with_grass', param2 = get_biome_color(biomedat.heat, biomedat.humidity)})
+				minetest.set_node(pos, {name = 'default:dirt_with_grass', param2 = get_biome_color(pos)})
 			end
 		end
 	end
@@ -156,11 +188,12 @@ minetest.register_decoration({
 	flags = 'force_placement'
 })
 
-local function tallgrass_after_place (pos, placer, itemstack, pointed_thing)
+local function tallgrass_after_place (name) return function (pos, placer, itemstack, pointed_thing)
 	local node = minetest.get_node(pos)
+	node.name = name .. math.random(1, 7)
 	node.param2 = math.random(0, 239)
 	minetest.swap_node(pos, node)
-end
+end end
 
 for i = 1, 5 do
 	minetest.override_item('default:dry_grass_'..i, {
@@ -170,12 +203,9 @@ for i = 1, 5 do
 		inventory_image = 'awg_dry_grass_inv.png',
 		paramtype2 = 'degrotate',
 		color = '#d0c256',
-		after_place_node = tallgrass_after_place,
-		on_place = i == 1 and function(itemstack, placer, pointed_thing)
-			local newstack = minetest.item_place(ItemStack('default:dry_grass_' .. math.random(1,7)), placer, pointed_thing)
-			return ItemStack('default:dry_grass_1 ' .. itemstack:get_count() - (1 - newstack: get_count()))
-		end or nil
-	}, {'wield_image'})
+		floodable = true,
+		after_place_node = tallgrass_after_place 'default:dry_grass_'
+	}, {'wield_image', 'on_place'})
 end
 
 for i = 1, 5 do
@@ -186,12 +216,9 @@ for i = 1, 5 do
 		inventory_image = 'awg_grass_inv.png',
 		paramtype2 = 'degrotate',
 		color = '#82a433',
-		after_place_node = tallgrass_after_place,
-		on_place = i == 1 and function(itemstack, placer, pointed_thing)
-			local newstack = minetest.item_place(ItemStack('default:grass_' .. math.random(1,7)), placer, pointed_thing)
-			return ItemStack('default:grass_1 ' .. itemstack:get_count() - (1 - newstack: get_count()))
-		end or nil
-	}, {'wield_image'})
+		floodable = true,
+		after_place_node = tallgrass_after_place 'default:grass_'
+	}, {'wield_image', 'on_place'})
 end
 
 awg: inherit_item('default:grass_5', 'grass_6', {
@@ -230,10 +257,10 @@ minetest.register_decoration({
 	noise_params = {
 		offset = -0.045,
 		scale = 0.1,
-		spread = {x = 200, y = 200, z = 200},
+		spread = {x = 300, y = 300, z = 300},
 		seed = 209,
 		octaves = 3,
-		persist = 0.6
+		persist = 0.8
 	},
 	biomes = {'grassland', 'deciduous_forest'},
 	y_max = 31000,
@@ -251,10 +278,10 @@ minetest.register_decoration({
 	noise_params = {
 		offset = -0.05,
 		scale = 0.12,
-		spread = {x = 200, y = 200, z = 200},
+		spread = {x = 300, y = 300, z = 300},
 		seed = 44,
 		octaves = 3,
-		persist = 0.6
+		persist = 0.8
 	},
 	biomes = {'grassland', 'deciduous_forest'},
 	y_max = 31000,
@@ -285,8 +312,8 @@ minetest.register_decoration({
 	sidelen = 16,
 	noise_params = {
 		offset = -0.045,
-		scale = 0.1,
-		spread = {x = 200, y = 200, z = 200},
+		scale = 0.2,
+		spread = {x = 600, y = 600, z = 600},
 		seed = 329,
 		octaves = 3,
 		persist = 0.6
@@ -306,8 +333,8 @@ minetest.register_decoration({
 	sidelen = 16,
 	noise_params = {
 		offset = -0.05,
-		scale = 0.12,
-		spread = {x = 200, y = 200, z = 200},
+		scale = 0.3,
+		spread = {x = 600, y = 600, z = 600},
 		seed = 812,
 		octaves = 3,
 		persist = 0.6

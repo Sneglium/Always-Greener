@@ -13,7 +13,9 @@ function awg.gettext (text, colormode, ...)
 end
 
 awg: load_script 'grass'
-minetest.register_mapgen_script(awg.path .. '/scripts/grass_mapcolors.lua')
+awg: load_script 'water'
+minetest.register_mapgen_script(awg.path .. '/scripts/mapcolors.lua')
+minetest.register_mapgen_script(awg.path .. '/scripts/maprotations.lua')
 
 awg: load_script 'plant_tweaks'
 

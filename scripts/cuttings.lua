@@ -44,6 +44,15 @@ awg: register_tool('secateurs', {
 	end
 })
 
+minetest.register_craft {
+	output = 'awg:secateurs',
+	recipe = {
+		{'', 'default:tin_ingot', 'etcetera:sandpaper_0'},
+		{'default:stick', '', 'default:tin_ingot'},
+		{'', 'default:stick', ''}
+	}
+}
+
 local function cutting_on_construct (pos)
 	minetest.get_node_timer(pos): start(math.random(90, 600))
 end
