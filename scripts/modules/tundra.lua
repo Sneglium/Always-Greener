@@ -238,3 +238,16 @@ minetest.register_decoration({
 	y_min = 1,
 	decoration = {'always_greener:tundra_shrub_4'}
 })
+
+if etc.modules.farming_tweaks then
+	etc.farming_tweaks.compost_values['always_greener:vegetable_sheep'] = 15
+	etc.farming_tweaks.compost_values['always_greener:tundra_shrub_4'] = 3
+	etc.farming_tweaks.compost_values['always_greener:tundra_shrub_3'] = 15
+	etc.farming_tweaks.compost_values['always_greener:tundra_shrub_2'] = 5
+	etc.farming_tweaks.compost_values['always_greener:tundra_shrub'] = 8
+	etc.farming_tweaks.compost_values['always_greener:tundra_lichen_5'] = 3
+	etc.farming_tweaks.compost_values['always_greener:tundra_lichen_4'] = 9
+	etc.farming_tweaks.compost_values['always_greener:tundra_lichen_3'] = 3
+	etc.farming_tweaks.compost_values['always_greener:tundra_lichen_2'] = 7
+	etc.farming_tweaks.compost_values['always_greener:tundra_lichen'] = 7
+end

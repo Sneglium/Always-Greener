@@ -31,16 +31,26 @@ local function get_biome_water_color(pos)
 	return math.min(255, (16 * humidity_scaled) + math.min(15, heat_scaled))
 end
 
+local function water_on_construct (pos)
+	local node = minetest.get_node(pos)
+	node.param2 = get_biome_water_color(pos)
+	minetest.swap_node(pos, node)
+end
+
+local alt_map = minetest.settings: get_bool('awg.water_color_dull', false)
+
 minetest.override_item('default:water_source', {
 	paramtype2 = 'color',
 	color = '#ffffff',
-	palette = 'awg_water_colormap.png',
+	palette = alt_map and 'awg_water_colormap_2.png' or 'awg_water_colormap.png',
+	on_construct = water_on_construct
 })
 
 minetest.override_item('default:river_water_source', {
 	paramtype2 = 'color',
 	color = '#ffffff',
-	palette = 'awg_water_colormap.png',
+	palette = alt_map and 'awg_water_colormap_2.png' or 'awg_water_colormap.png',
+	on_construct = water_on_construct
 })
 
 minetest.register_on_liquid_transformed(function(pos_list)

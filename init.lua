@@ -13,12 +13,17 @@ function awg.gettext (text, colormode, ...)
 end
 
 awg: load_script 'grass'
+awg: load_script 'mud'
 awg: load_script 'water'
+minetest.register_mapgen_script(awg.path .. '/scripts/mapreplacements.lua')
 minetest.register_mapgen_script(awg.path .. '/scripts/mapcolors.lua')
 minetest.register_mapgen_script(awg.path .. '/scripts/maprotations.lua')
 
 awg: load_script 'plant_tweaks'
+awg: load_script 'tree_tweaks'
 
-awg: load_script 'tundra'
+awg: load_module 'tundra'
 
-awg: load_script 'cuttings'
+if minetest.settings: get_bool('awg.cuttings', true) then
+	awg: load_script 'cuttings'
+end

@@ -1,7 +1,7 @@
 
 local cuttable = {}
 
-local uses = 300
+local uses = minetest.settings: get 'awg.secateurs_num_uses' or 300
 
 awg: register_tool('secateurs', {
 	displayname = 'Secateurs',
@@ -131,11 +131,11 @@ local function register_cuttable (nodename, can_grow, hp, cutting, nomask)
 	if cutting then
 		cuttable[nodename] = {hp, cutting}
 	else
-		local cutting = register_cutting(nodename, can_grow, nomask)
+		cutting = register_cutting(nodename, can_grow, nomask)
 		cuttable[nodename] = {hp, cutting}
 		
 		if etc.modules.farming_tweaks then
-			etc.modules.farming_tweaks.plants[cutting] = nodename
+			etc.farming_tweaks.plants[cutting] = nodename
 		end
 	end
 end
@@ -156,25 +156,27 @@ register_cuttable('default:dry_grass_5', nil, 3, 'always_greener:cutting_dry_gra
 register_cuttable('always_greener:dry_grass_6', nil, 4, 'always_greener:cutting_dry_grass_1')
 register_cuttable('always_greener:dry_grass_7', nil, 5, 'always_greener:cutting_dry_grass_1')
 
-minetest.register_craft {
-	type = 'shapeless',
-	output = 'default:dirt_with_grass',
-	recipe = {
-		'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1',
-		'always_greener:cutting_grass_1', 'default:dirt', 'always_greener:cutting_grass_1',
-		'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1'
+if minetest.settings: get_bool('awg.craft_grass_blocks', true) then
+	minetest.register_craft {
+		type = 'shapeless',
+		output = 'default:dirt_with_grass',
+		recipe = {
+			'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1',
+			'always_greener:cutting_grass_1', 'default:dirt', 'always_greener:cutting_grass_1',
+			'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1', 'always_greener:cutting_grass_1'
+		}
 	}
-}
 
-minetest.register_craft {
-	type = 'shapeless',
-	output = 'always_greener:dry_dirt_with_grass',
-	recipe = {
-		'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1',
-		'always_greener:cutting_dry_grass_1', 'default:dry_dirt', 'always_greener:cutting_dry_grass_1',
-		'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1'
+	minetest.register_craft {
+		type = 'shapeless',
+		output = 'always_greener:dry_dirt_with_grass',
+		recipe = {
+			'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1',
+			'always_greener:cutting_dry_grass_1', 'default:dry_dirt', 'always_greener:cutting_dry_grass_1',
+			'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1', 'always_greener:cutting_dry_grass_1'
+		}
 	}
-}
+end
 
 register_cuttable('flowers:chrysanthemum_green', true, 2, nil, false)
 register_cuttable('flowers:dandelion_white', true, 2, nil, false)

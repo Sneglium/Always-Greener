@@ -5,7 +5,7 @@ minetest.unregister_item 'default:dry_dirt_with_dry_grass'
 minetest.register_alias('default:dirt_with_dry_grass', '')
 minetest.register_alias('default:dry_dirt_with_dry_grass', 'always_greener:dry_dirt_with_grass')
 
-local function get_biome_color(pos)
+function awg.get_biome_color(pos)
 	local biomedat = minetest.get_biome_data(pos)
 	
 	local heat = biomedat.heat
@@ -38,11 +38,14 @@ local function grass_after_place (pos, placer, itemstack, pointed_thing)
 		node.param2 = 136
 		minetest.set_node(pos, node)
 		
+		local meta = minetest.get_meta(pos)
+		meta: set_string('awg:no_recolor', 'true')
+		
 		return
 	end
 	
 	local node = minetest.get_node(pos)
-	node.param2 = get_biome_color(pos)
+	node.param2 = awg.get_biome_color(pos)
 	minetest.set_node(pos, node)
 end
 
@@ -86,41 +89,63 @@ awg: inherit_item('default:dirt_with_grass', 'dry_dirt_with_grass', {
 	drop = 'default:dry_dirt'
 })
 
-awg: inherit_item('default:dirt_with_grass', 'dirt_with_dead_grass', {
-	displayname = 'Dirt with Dead Grass',
-	description = '',
-	groups = {crumbly = 3, soil = 1},
-	palette = 'awg_dead_grass_colormap.png',
-	color = '#594a28',
-	tiles = {
-		{name = 'default_dirt.png', color = 'white'},
-		{name = 'default_dirt.png', color = 'white'},
-		{name = 'default_dirt.png', color = 'white'}
+minetest.register_abm {
+	label = 'Grass Color Update',
+	nodenames = {
+		'default:dirt_with_grass',
+		'always_greener:dry_dirt_with_grass'
 	},
-	overlay_tiles = {
-		'awg_dead_grass.png',
-		'',
-		'awg_dead_grass_side.png'
-	}
-})
+	interval = 30,
+	chance = 10,
+	catch_up = true,
+	action = function(pos, node)
+		local meta = minetest.get_meta(pos)
+		if meta: get_string 'awg:no_recolor' == 'true' then return end
+		
+		node.param2 = awg.get_biome_color(pos)
+		minetest.swap_node(pos, node)
+	end
+}
 
-awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_grass', {
-	displayname = 'Savanna Dirt with Dead Grass',
-	description = '',
-	groups = {crumbly = 3, soil = 1},
-	palette = 'awg_dead_grass_colormap.png',
-	color = '#594a28',
-	tiles = {
-		{name = 'default_dry_dirt.png', color = 'white'},
-		{name = 'default_dry_dirt.png', color = 'white'},
-		{name = 'default_dry_dirt.png', color = 'white'}
-	},
-	overlay_tiles = {
-		'awg_dead_grass.png',
-		'',
-		'awg_dead_grass_side.png'
-	}
-})
+local dead_grass = minetest.settings: get_bool('awg.dead_grass', true)
+
+if dead_grass then
+	awg: inherit_item('default:dirt_with_grass', 'dirt_with_dead_grass', {
+		displayname = 'Dirt with Dead Grass',
+		description = '',
+		groups = {crumbly = 3, soil = 1},
+		palette = 'awg_dead_grass_colormap.png',
+		color = '#594a28',
+		tiles = {
+			{name = 'default_dirt.png', color = 'white'},
+			{name = 'default_dirt.png', color = 'white'},
+			{name = 'default_dirt.png', color = 'white'}
+		},
+		overlay_tiles = {
+			'awg_dead_grass.png',
+			'',
+			'awg_dead_grass_side.png'
+		}
+	})
+
+	awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_grass', {
+		displayname = 'Savanna Dirt with Dead Grass',
+		description = '',
+		groups = {crumbly = 3, soil = 1},
+		palette = 'awg_dead_grass_colormap.png',
+		color = '#594a28',
+		tiles = {
+			{name = 'default_dry_dirt.png', color = 'white'},
+			{name = 'default_dry_dirt.png', color = 'white'},
+			{name = 'default_dry_dirt.png', color = 'white'}
+		},
+		overlay_tiles = {
+			'awg_dead_grass.png',
+			'',
+			'awg_dead_grass_side.png'
+		}
+	})
+end
 
 local caught = 0
 
@@ -130,15 +155,17 @@ for i, abm in pairs(minetest.registered_abms) do
 	if abm.label == 'Grass covered' then
 		caught = caught + 1
 		
-		abm.action = function(pos, node)
-			local above = pos + vector.new(0, 1, 0)
-			local name = minetest.get_node(above).name
-			local def = minetest.registered_nodes[name]
-			if name ~= 'ignore' and def and not (def.sunlight_propagates or def.paramtype == 'light') then
-				if node.name == 'always_greener:dry_dirt_with_grass' then
-					minetest.set_node(pos, {name = 'always_greener:dry_dirt_with_dead_grass', param2 = get_biome_color(pos)})
-				else
-					minetest.set_node(pos, {name = 'always_greener:dirt_with_dead_grass', param2 = get_biome_color(pos)})
+		if dead_grass then
+			abm.action = function(pos, node)
+				local above = pos + vector.new(0, 1, 0)
+				local name = minetest.get_node(above).name
+				local def = minetest.registered_nodes[name]
+				if name ~= 'ignore' and def and not (def.sunlight_propagates or def.paramtype == 'light') then
+					if node.name == 'always_greener:dry_dirt_with_grass' then
+						minetest.set_node(pos, {name = 'always_greener:dry_dirt_with_dead_grass', param2 = awg.get_biome_color(pos)})
+					else
+						minetest.set_node(pos, {name = 'always_greener:dirt_with_dead_grass', param2 = awg.get_biome_color(pos)})
+					end
 				end
 			end
 		end
@@ -154,7 +181,7 @@ for i, abm in pairs(minetest.registered_abms) do
 			local pos2 = minetest.find_node_near(pos, 1, 'group:spreading_dirt_type')
 			if pos2 then
 				local near_node = minetest.get_node(pos2)
-				near_node.param2 = get_biome_color(pos)
+				near_node.param2 = awg.get_biome_color(pos)
 				minetest.set_node(pos, near_node)
 				return
 			end
@@ -163,7 +190,7 @@ for i, abm in pairs(minetest.registered_abms) do
 			if name == 'default:snow' then
 				minetest.set_node(pos, {name = 'default:dirt_with_snow'})
 			elseif minetest.get_item_group(name, 'grass') + minetest.get_item_group(name, 'dry_grass') ~= 0 then
-				minetest.set_node(pos, {name = 'default:dirt_with_grass', param2 = get_biome_color(pos)})
+				minetest.set_node(pos, {name = 'default:dirt_with_grass', param2 = awg.get_biome_color(pos)})
 			end
 		end
 	end
@@ -200,7 +227,8 @@ for i = 1, 5 do
 		drawtype = 'mesh',
 		mesh = 'awg_grass.obj',
 		tiles = {'awg_grass_'..i..'.png'},
-		inventory_image = 'awg_dry_grass_inv.png',
+		inventory_overlay = 'awg_dry_grass_inv.png',
+		inventory_image = 'empty.png',
 		paramtype2 = 'degrotate',
 		color = '#d0c256',
 		floodable = true,
@@ -213,7 +241,8 @@ for i = 1, 5 do
 		drawtype = 'mesh',
 		mesh = 'awg_grass.obj',
 		tiles = {'awg_grass_'..i..'.png'},
-		inventory_image = 'awg_grass_inv.png',
+		inventory_overlay = 'awg_grass_inv.png',
+		inventory_image = 'empty.png',
 		paramtype2 = 'degrotate',
 		color = '#82a433',
 		floodable = true,
@@ -368,7 +397,11 @@ minetest.override_item('default:junglegrass', {
 	inventory_image = 'awg_jungle_grass_inv.png',
 	paramtype2 = 'degrotate',
 	visual_scale = 1,
-	after_place_node = tallgrass_after_place
+	after_place_node = function (pos, placer, itemstack, pointed_thing)
+		local node = minetest.get_node(pos)
+		node.param2 = math.random(0, 239)
+		minetest.swap_node(pos, node)
+	end
 }, {'wield_image'})
 
 awg: inherit_item('default:junglegrass', 'jungle_grass_flowering', {
@@ -414,3 +447,7 @@ minetest.register_decoration({
 	param2 = 0,
 	param2_max = 239
 })
+
+if etc.modules.farming_tweaks then
+	etc.farming_tweaks.compost_values['always_greener:jungle_grass_flowering'] = 9
+end
