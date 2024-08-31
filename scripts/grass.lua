@@ -143,7 +143,8 @@ if dead_grass then
 			'awg_dead_grass.png',
 			'',
 			'awg_dead_grass_side.png'
-		}
+		},
+		drop = 'default:dry_dirt'
 	})
 end
 
