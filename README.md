@@ -69,7 +69,8 @@ Most of the plants and similar things in MTG have been given new models and text
  - All of the flowers from the `flowers` mod, as well as mushrooms (which each have two new variants) and waterlilies, with three new variants;
  - Blue, Pink, and Cyan Coral;
  - Papyrus;
- - Kelp, which is now fully animated and with a rich brown color
+ - Kelp, which is now fully animated and with a rich brown color;
+ - Cactus
 
 ### Biome Overhauls
 

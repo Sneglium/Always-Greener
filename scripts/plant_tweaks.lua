@@ -542,3 +542,9 @@ minetest.override_item('default:sand_with_kelp', {
 	}}
 })
 
+minetest.override_item('default:cactus', {
+	tiles = {'awg_cactus.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_cactus.obj'
+})
