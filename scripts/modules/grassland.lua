@@ -16,7 +16,7 @@ awg: register_node('sage', {
 		type = 'fixed',
 		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
 	},
-	groups = {plant = 1, snappy = 2, oddly_breakable_by_hand = 3, flammable = 1},
+	groups = {plant = 1, flower = 1, snappy = 2, oddly_breakable_by_hand = 3, flammable = 1},
 	sounds = default.node_sound_leaves_defaults()
 })
 

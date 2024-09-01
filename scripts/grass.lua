@@ -65,7 +65,7 @@ etc.smart_override_item('default:silver_sand', {groups = {sand = 1}})
 etc.smart_override_item('default:desert_sand', {groups = {sand = 1}})
 etc.smart_override_item('default:gravel', {groups = {gravel = 1}})
 
-minetest.override_item('default:dirt_with_grass', {
+etc.smart_override_item('default:dirt_with_grass', {
 	tiles = {
 		{name = 'awg_grass.png'},
 		{name = 'default_dirt.png', color = 'white'},
@@ -230,7 +230,7 @@ local function tallgrass_after_place (name) return function (pos, placer, itemst
 end end
 
 for i = 1, 5 do
-	minetest.override_item('default:dry_grass_'..i, {
+	etc.smart_override_item('default:dry_grass_'..i, {
 		drawtype = 'mesh',
 		mesh = 'awg_grass.obj',
 		tiles = {'awg_grass_'..i..'.png'},
@@ -239,12 +239,13 @@ for i = 1, 5 do
 		paramtype2 = 'degrotate',
 		color = '#d0c256',
 		floodable = true,
-		after_place_node = tallgrass_after_place 'default:dry_grass_'
+		after_place_node = tallgrass_after_place 'default:dry_grass_',
+		groups = {plant = 1}
 	}, {'wield_image', 'on_place'})
 end
 
 for i = 1, 5 do
-	minetest.override_item('default:grass_'..i, {
+	etc.smart_override_item('default:grass_'..i, {
 		drawtype = 'mesh',
 		mesh = 'awg_grass.obj',
 		tiles = {'awg_grass_'..i..'.png'},
@@ -253,7 +254,8 @@ for i = 1, 5 do
 		paramtype2 = 'degrotate',
 		color = '#82a433',
 		floodable = true,
-		after_place_node = tallgrass_after_place 'default:grass_'
+		after_place_node = tallgrass_after_place 'default:grass_',
+		groups = {plant = 1}
 	}, {'wield_image', 'on_place'})
 end
 
@@ -397,7 +399,7 @@ minetest.register_decoration({
 	param2_max = 239
 })
 
-minetest.override_item('default:junglegrass', {
+etc.smart_override_item('default:junglegrass', {
 	drawtype = 'mesh',
 	mesh = 'awg_jungle_grass.obj',
 	tiles = {'awg_jungle_grass.png'},
@@ -408,7 +410,8 @@ minetest.override_item('default:junglegrass', {
 		local node = minetest.get_node(pos)
 		node.param2 = math.random(0, 239)
 		minetest.swap_node(pos, node)
-	end
+	end,
+	groups = {plant = 1}
 }, {'wield_image'})
 
 awg: inherit_item('default:junglegrass', 'jungle_grass_flowering', {

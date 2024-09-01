@@ -1,22 +1,22 @@
 
-minetest.override_item('farming:wheat_7', {
+etc.smart_override_item('farming:wheat_7', {
 	drawtype = 'mesh',
 	mesh = 'awg_wheat.obj',
 })
 
-minetest.override_item('farming:wheat_8', {
+etc.smart_override_item('farming:wheat_8', {
 	drawtype = 'mesh',
 	mesh = 'awg_wheat.obj',
 })
 
 for i = 1, 8 do
-	minetest.override_item('farming:cotton_'..i, {
+	etc.smart_override_item('farming:cotton_'..i, {
 		paramtype2 = 'meshoptions',
 		place_param2 = 4
 	})
 end
 
-minetest.override_item('farming:seed_cotton', {
+etc.smart_override_item('farming:seed_cotton', {
 	place_param2 = 4
 })
 
@@ -27,31 +27,34 @@ local function fern_after_place (pos, placer, itemstack, pointed_thing)
 	minetest.swap_node(pos, node)
 end
 
-minetest.override_item('default:fern_1', {
+etc.smart_override_item('default:fern_1', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_fern.obj',
 	tiles = {'awg_fern_1.png'},
 	after_place_node = fern_after_place,
-	inventory_image = 'awg_fern_inv.png'
+	inventory_image = 'awg_fern_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('default:fern_2', {
+etc.smart_override_item('default:fern_2', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_fern.obj',
 	tiles = {'awg_fern_2.png'},
 	visual_scale = 1,
-	after_place_node = fern_after_place
+	after_place_node = fern_after_place,
+	groups = {plant = 1}
 })
 
-minetest.override_item('default:fern_3', {
+etc.smart_override_item('default:fern_3', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_fern.obj',
 	tiles = {'awg_fern_3.png'},
 	visual_scale = 1,
-	after_place_node = fern_after_place
+	after_place_node = fern_after_place,
+	groups = {plant = 1}
 })
 
 awg: inherit_item('default:fern_3', 'fern_4', {
@@ -88,7 +91,7 @@ local function flower_after_place (pos, placer, itemstack, pointed_thing)
 	minetest.swap_node(pos, node)
 end
 
-minetest.override_item('flowers:geranium', {
+etc.smart_override_item('flowers:geranium', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_geranium.obj',
@@ -96,10 +99,11 @@ minetest.override_item('flowers:geranium', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_geranium_inv.png'
+	inventory_image = 'awg_geranium_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:chrysanthemum_green', {
+etc.smart_override_item('flowers:chrysanthemum_green', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_chrysanthemum.obj',
@@ -107,10 +111,11 @@ minetest.override_item('flowers:chrysanthemum_green', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_chrysanthemum_inv.png'
+	inventory_image = 'awg_chrysanthemum_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:dandelion_yellow', {
+etc.smart_override_item('flowers:dandelion_yellow', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_dandelion.obj',
@@ -118,10 +123,11 @@ minetest.override_item('flowers:dandelion_yellow', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_dandelion_yellow_inv.png'
+	inventory_image = 'awg_dandelion_yellow_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:dandelion_white', {
+etc.smart_override_item('flowers:dandelion_white', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_dandelion.obj',
@@ -129,10 +135,11 @@ minetest.override_item('flowers:dandelion_white', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_dandelion_white_inv.png'
+	inventory_image = 'awg_dandelion_white_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:viola', {
+etc.smart_override_item('flowers:viola', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_viola.obj',
@@ -140,10 +147,11 @@ minetest.override_item('flowers:viola', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_viola_inv.png'
+	inventory_image = 'awg_viola_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:tulip', {
+etc.smart_override_item('flowers:tulip', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_tulip.obj',
@@ -151,10 +159,11 @@ minetest.override_item('flowers:tulip', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_tulip_orange_inv.png'
+	inventory_image = 'awg_tulip_orange_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:tulip_black', {
+etc.smart_override_item('flowers:tulip_black', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_tulip.obj',
@@ -162,10 +171,11 @@ minetest.override_item('flowers:tulip_black', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_tulip_black_inv.png'
+	inventory_image = 'awg_tulip_black_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('flowers:rose', {
+etc.smart_override_item('flowers:rose', {
 	drawtype = 'mesh',
 	paramtype2 = 'degrotate',
 	mesh = 'awg_rose.obj',
@@ -173,12 +183,13 @@ minetest.override_item('flowers:rose', {
 	after_place_node = flower_after_place,
 	use_texture_alpha = 'clip',
 	waving = 0,
-	inventory_image = 'awg_rose_inv.png'
+	inventory_image = 'awg_rose_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
 minetest.register_alias('flowers:mushroom_brown_1', 'flowers:mushroom_brown')
 
-minetest.override_item('flowers:mushroom_brown', {
+etc.smart_override_item('flowers:mushroom_brown', {
 	tiles = {'awg_mushroom_brown_top.png', 'awg_mushroom_bottom.png', 'awg_mushroom_brown_side.png'},
 	use_texture_alpha = 'clip',
 	after_place_node = function (pos, placer, itemstack, pointed_thing)
@@ -299,7 +310,7 @@ minetest.register_decoration({
 
 minetest.register_alias('flowers:mushroom_red_1', 'flowers:mushroom_red')
 
-minetest.override_item('flowers:mushroom_red', {
+etc.smart_override_item('flowers:mushroom_red', {
 	tiles = {'awg_mushroom_red_top.png', 'awg_mushroom_bottom.png', 'awg_mushroom_red_side.png'},
 	use_texture_alpha = 'clip',
 	after_place_node = function (pos, placer, itemstack, pointed_thing)
@@ -424,7 +435,7 @@ minetest.register_decoration({
 	decoration = 'always_greener:mushroom_red_3',
 })
 
-minetest.override_item('default:coral_cyan', {
+etc.smart_override_item('default:coral_cyan', {
 	drawtype = 'mesh',
 	mesh = 'awg_coral_cyan.obj',
 	tiles = {'default_coral_skeleton.png', 'awg_coral_cyan.png'},
@@ -434,7 +445,7 @@ minetest.override_item('default:coral_cyan', {
 	wield_image = 'awg_coral_cyan_inv.png'
 })
 
-minetest.override_item('default:coral_pink', {
+etc.smart_override_item('default:coral_pink', {
 	drawtype = 'mesh',
 	mesh = 'awg_coral_pink.obj',
 	tiles = {'default_coral_skeleton.png', 'awg_coral_pink.png'},
@@ -444,7 +455,7 @@ minetest.override_item('default:coral_pink', {
 	wield_image = 'awg_coral_pink_inv.png'
 })
 
-minetest.override_item('default:coral_green', {
+etc.smart_override_item('default:coral_green', {
 	drawtype = 'mesh',
 	mesh = 'awg_coral_green.obj',
 	tiles = {'default_coral_skeleton.png', 'awg_coral_green.png'},
@@ -454,16 +465,17 @@ minetest.override_item('default:coral_green', {
 	wield_image = 'awg_coral_green_inv.png'
 })
 
-minetest.override_item('flowers:waterlily_waving', {
+etc.smart_override_item('flowers:waterlily_waving', {
 	tiles = {'awg_water_lily.png'},
 	use_texture_alpha = 'clip',
 	drawtype = 'mesh',
 	mesh = 'awg_water_lily.obj',
 	paramtype2 = 'degrotate',
-	drop = 'flowers:waterlily'
+	drop = 'flowers:waterlily',
+	groups = {plant = 1}
 })
 
-minetest.override_item('flowers:waterlily', {
+etc.smart_override_item('flowers:waterlily', {
 	on_place = function(itemstack, placer, pointed_thing)
 		local pos = pointed_thing.above
 		local node = minetest.get_node(pointed_thing.under)
@@ -486,7 +498,8 @@ minetest.override_item('flowers:waterlily', {
 		return itemstack
 	end,
 	inventory_image = 'awg_water_lily_inv.png',
-	wield_image = 'awg_water_lily_inv.png'
+	wield_image = 'awg_water_lily_inv.png',
+	groups = {plant = 1}
 })
 
 minetest.register_alias('flowers:waterlily_waving_1', 'flowers:waterlily_waving')
@@ -518,15 +531,16 @@ awg: inherit_item('flowers:waterlily_waving', 'waterlily_waving_4', {
 })
 minetest.register_alias('flowers:waterlily_waving_4', 'always_greener:waterlily_waving_4')
 
-minetest.override_item('default:papyrus', {
+etc.smart_override_item('default:papyrus', {
 	tiles = {'awg_papyrus.png'},
 	use_texture_alpha = 'clip',
 	drawtype = 'mesh',
 	mesh = 'awg_papyrus.obj',
-	inventory_image = 'awg_papyrus_inv.png'
+	inventory_image = 'awg_papyrus_inv.png',
+	groups = {plant = 1}
 }, {'wield_image'})
 
-minetest.override_item('default:sand_with_kelp', {
+etc.smart_override_item('default:sand_with_kelp', {
 	waving = 2,
 	inventory_image = 'awg_kelp_inv.png',
 	wield_image = 'awg_kelp_inv.png',
@@ -539,12 +553,30 @@ minetest.override_item('default:sand_with_kelp', {
 			aspect_h = 16,
 			length = 4
 		}
-	}}
+	}},
+	groups = {plant = 1}
 })
 
-minetest.override_item('default:cactus', {
+etc.smart_override_item('default:cactus', {
 	tiles = {'awg_cactus.png'},
 	use_texture_alpha = 'clip',
 	drawtype = 'mesh',
-	mesh = 'awg_cactus.obj'
+	mesh = 'awg_cactus.obj',
+	groups = {plant = 1}
 })
+
+etc.smart_override_item('default:acacia_bush_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:acacia_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:aspen_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:blueberry_bush_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:bush_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:dry_shrub', {groups = {plant = 1}})
+etc.smart_override_item('default:emergent_jungle_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:junglesapling', {groups = {plant = 1}})
+etc.smart_override_item('default:marram_grass_1', {groups = {plant = 1}})
+etc.smart_override_item('default:marram_grass_2', {groups = {plant = 1}})
+etc.smart_override_item('default:marram_grass_3', {groups = {plant = 1}})
+etc.smart_override_item('default:large_cactus_seedling', {groups = {plant = 1}})
+etc.smart_override_item('default:pine_bush_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:pine_sapling', {groups = {plant = 1}})
+etc.smart_override_item('default:sapling', {groups = {plant = 1}})

@@ -8,7 +8,7 @@ awg: register_node('vegetable_sheep', {
 		type = 'fixed',
 		fixed = {-0.5, -0.5, -0.5, 0.5, -3/16, 0.5}
 	},
-	groups = {crumbly = 3},
+	groups = {crumbly = 3, plant = 1},
 	sounds = default.node_sound_leaves_defaults()
 })
 
@@ -44,7 +44,7 @@ awg: register_node('tundra_lichen', {
 		type = 'fixed',
 		fixed = {-0.5, -0.5, -0.5, 0.5, -6/16, 0.5}
 	},
-	groups = {snappy = 3},
+	groups = {snappy = 3, plant = 1},
 	sounds = default.node_sound_leaves_defaults()
 })
 
@@ -148,7 +148,7 @@ awg: register_node('tundra_shrub', {
 		type = 'fixed',
 		fixed = {-0.35, -0.5, -0.35, 0.35, -0.1, 0.35}
 	},
-	groups = {snappy = 3},
+	groups = {snappy = 3, plant = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	move_resistance = 1
 })
