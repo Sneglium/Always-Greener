@@ -5,31 +5,37 @@ minetest.unregister_item 'default:dry_dirt_with_dry_grass'
 minetest.register_alias('default:dirt_with_dry_grass', '')
 minetest.register_alias('default:dry_dirt_with_dry_grass', 'always_greener:dry_dirt_with_grass')
 
-function awg.get_biome_color(pos)
+local alt_chill = minetest.settings: get_bool('awg.grass_alt_chill', true)
+local alt_dry = minetest.settings: get_bool('awg.grass_alt_dry', true)
+local grass_water_prox = minetest.settings: get_bool('awg.grass_water_prox', true)
+
+function awg.get_biome_color (pos)
 	local biomedat = minetest.get_biome_data(pos)
 	
 	local heat = biomedat.heat
 	local humidity = biomedat.humidity
 	
-	if pos.y > 90 then
-		heat = heat - ((pos.y - 90) * 0.45)
-		humidity = humidity - ((pos.y - 90) * 0.2)
+	if pos.y > 80 then
+		heat = heat - (alt_chill and ((pos.y - 80) * 0.5) or 0)
+		humidity = humidity - (alt_dry and ((pos.y - 80) * 0.75) or 0)
 	end
 	
-	local water = minetest.find_node_near(pos, 8, {
-		'default:water_source', 'default:river_water_source',
-		'default:water_flowing', 'default:river_water_flowing'
-	})
-	
-	if water then
-		local dist = pos: distance(water)
-		humidity = humidity + (math.max(0, 8 - dist - math.random(0, 1)) * 4.5)
+	if grass_water_prox then
+		local water = minetest.find_node_near(pos, 8, {
+			'default:water_source', 'default:river_water_source',
+			'default:water_flowing', 'default:river_water_flowing'
+		})
+		
+		if water then
+			local dist = pos: distance(water)
+			humidity = humidity + (math.max(0, 8 - dist - math.random(0, 1)) * 4.5)
+		end
 	end
 	
 	local heat_scaled = math.floor((math.max(0, math.min(heat, 100)) / 100) * 16)
 	local humidity_scaled = math.floor((math.max(0, math.min(humidity, 100)) / 100) * 16)
 	
-	return math.min(255, (16 * humidity_scaled) + math.min(15, heat_scaled))
+	return math.max(0, math.min(255, (16 * math.min(15, humidity_scaled)) + math.min(15, heat_scaled)))
 end
 
 local function grass_after_place (pos, placer, itemstack, pointed_thing)

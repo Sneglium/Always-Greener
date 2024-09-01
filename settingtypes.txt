@@ -3,11 +3,11 @@
 
 [*Colors]
 
-# When enabled, the apparent local temperature for calculating grass color will be reduced by 0.75° per meter above y=90
+# When enabled, the apparent local temperature for calculating grass color will be reduced by 0.5° per meter above y=80
 # Boolean (true/false); default: true
 awg.grass_alt_chill (Altitude Cooling Effect) bool true
 
-# When enabled, the apparent local humidity for calculating grass color will be reduced by 0.5° per meter above y=90
+# When enabled, the apparent local humidity for calculating grass color will be reduced by 0.75° per meter above y=80
 # Boolean (true/false); default: true
 awg.grass_alt_dry (Altitude Drying Effect) bool true
 

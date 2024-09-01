@@ -21,9 +21,9 @@ local function get_biome_grass_color(pos)
 	local heat = biomedat.heat
 	local humidity = biomedat.humidity
 	
-	if pos.y > 90 then
-		heat = heat - (alt_chill and ((pos.y - 90) * 0.75) or 0)
-		humidity = humidity - (alt_dry and ((pos.y - 90) * 0.5) or 0)
+	if pos.y > 80 then
+		heat = heat - (alt_chill and ((pos.y - 80) * 0.5) or 0)
+		humidity = humidity - (alt_dry and ((pos.y - 80) * 0.75) or 0)
 	end
 	
 	if grass_water_prox then
