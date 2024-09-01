@@ -80,6 +80,12 @@ Adds a bunch of new plants to the tundra biome, mostly including mosses and smal
 
  - *Tundra Overhaul* (`awg.load_module_tundra`): Enable or disable the tundra biome overhaul.
 
+#### Grassland Biome
+
+New decorations for grasslands 
+
+ - *Grassland Overhaul* (`awg.load_module_grassland`): Enable or disable the grassland biome overhaul.
+
 ## Licensing
 ```
 Always Greener (etcetera) (c) 2024 Hagatha (Sneglium)  

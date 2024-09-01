@@ -81,3 +81,7 @@ awg.bushes (Enable Bush Leaves Mesh) bool true
 # Enable or disable the tundra biome overhaul.
 # Boolean (true/false); default: true
 awg.load_module_tundra (Tundra Overhaul) bool true
+
+# Enable or disable the grassland biome overhaul.
+# Boolean (true/false); default: true
+awg.load_module_grassland (Grassland Overhaul) bool true
