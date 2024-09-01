@@ -1,5 +1,5 @@
 # Always Greener
-...is a nature & worldgen mod focused in improving MTG's existing natural world & biomes, rather than just adding a bunch of new ones. It primarily deals with the visual quality of the game, for example giving plants better models and adding new foliage and natural nodes such as mud, but also adds new mechanics like the "cuttings" system for replicating plants.
+...is a nature & worldgen mod focused on improving MTG's existing natural world & biomes, rather than just adding a bunch of new ones. It primarily deals with the visual quality of the game, for example giving plants better models and adding new foliage and natural nodes such as mud, but also adds new mechanics like the "cuttings" system for replicating plants.
 
 Always Greener depends on [Et Cetera](https://content.minetest.net/packages/Hagatha/etcetera/), make sure it is also installed and enabled when using the mod.
 
