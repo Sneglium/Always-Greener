@@ -28,7 +28,7 @@ function awg.get_biome_color (pos)
 		
 		if water then
 			local dist = pos: distance(water)
-			humidity = humidity + (math.max(0, 8 - dist - math.random(0, 1)) * 4.5)
+			humidity = humidity + (math.max(0, 8 - dist - math.random(0, 1)) * 8)
 		end
 	end
 	
