@@ -25,6 +25,7 @@ awg: load_script 'tree_tweaks'
 
 -- Specific Biome Changes/Additions
 awg: load_module 'tundra'
+awg: load_module 'grassland'
 
 if minetest.settings: get_bool('awg.cuttings', true) then
 	awg: load_script 'cuttings'
