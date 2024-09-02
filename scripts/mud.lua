@@ -2,13 +2,7 @@
 awg: register_node('mud', {
 	displayname = 'Mud',
 	tiles = {'awg_mud.png'},
-	sounds = {
-		footstep = {name = 'etc_slime_dig', pitch = 1.5, gain = 0.5},
-		dig = {name = 'etc_slime_dig', pitch = 2},
-		dug = {name = 'etc_slime_dug', pitch = 2},
-		fall = {name = 'etc_slime_dug', pitch = 2},
-		place = {name = 'etc_slime_dug', pitch = 3}
-	},
+	sounds = etc.get_sound_group 'mud',
 	groups = {crumbly = 1, oddly_breakable_by_hand = 1, fall_damage_add_percent = -25, soil = 1},
 	drop = 'awg:mud_lump 4'
 })
