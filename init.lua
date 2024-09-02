@@ -23,6 +23,8 @@ minetest.register_mapgen_script(awg.path .. '/scripts/maprotations.lua')
 awg: load_script 'plant_tweaks'
 awg: load_script 'tree_tweaks'
 
+minetest.register_mapgen_script(awg.path .. '/scripts/sub_biomes')
+
 -- Specific Biome Changes/Additions
 awg: load_module 'tundra'
 awg: load_module 'grassland'
