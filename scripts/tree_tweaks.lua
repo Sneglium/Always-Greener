@@ -42,16 +42,11 @@ local function leaves_after_place (pos, placer, itemstack, pointed_thing)
 	minetest.swap_node(pos, node)
 end
 
-local climb = minetest.settings: get_bool('awg.tree_leaves_climbable', true)
-
 if minetest.settings: get_bool('awg.tree_leaves', true) then
 	minetest.override_item('default:leaves', {
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
-		walkable = not climb,
-		climbable = climb,
-		move_resistance = 6,
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
 		visual_scale = 0.8
@@ -61,9 +56,6 @@ if minetest.settings: get_bool('awg.tree_leaves', true) then
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
-		walkable = not climb,
-		climbable = climb,
-		move_resistance = 6,
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
 		visual_scale = 0.8
@@ -73,9 +65,6 @@ if minetest.settings: get_bool('awg.tree_leaves', true) then
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
-		walkable = not climb,
-		climbable = climb,
-		move_resistance = 6,
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
 		visual_scale = 0.8
@@ -85,9 +74,6 @@ if minetest.settings: get_bool('awg.tree_leaves', true) then
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
-		walkable = not climb,
-		climbable = climb,
-		move_resistance = 6,
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
 		visual_scale = 0.8
@@ -97,11 +83,40 @@ if minetest.settings: get_bool('awg.tree_leaves', true) then
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
-		walkable = not climb,
-		climbable = climb,
-		move_resistance = 6,
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
 		visual_scale = 0.8
+	})
+end
+
+if minetest.settings: get_bool('awg.tree_leaves_climbable', true) then
+	minetest.override_item('default:leaves', {
+		walkable = false,
+		climbable = true,
+		move_resistance = 4
+	})
+	
+	minetest.override_item('default:acacia_leaves', {
+		walkable = false,
+		climbable = true,
+		move_resistance = 4
+	})
+	
+	minetest.override_item('default:aspen_leaves', {
+		walkable = false,
+		climbable = true,
+		move_resistance = 4
+	})
+	
+	minetest.override_item('default:pine_needles', {
+		walkable = false,
+		climbable = true,
+		move_resistance = 4
+	})
+	
+	minetest.override_item('default:jungleleaves', {
+		walkable = false,
+		climbable = true,
+		move_resistance = 4
 	})
 end

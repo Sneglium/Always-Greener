@@ -119,7 +119,7 @@ if dead_grass then
 	awg: inherit_item('default:dirt_with_grass', 'dirt_with_dead_grass', {
 		displayname = 'Dirt with Dead Grass',
 		description = '',
-		groups = {crumbly = 3, soil = 1},
+		groups = {crumbly = 3, soil = 1, spreading_dirt_type = 0},
 		palette = 'awg_dead_grass_colormap.png',
 		color = '#594a28',
 		tiles = {
@@ -137,7 +137,7 @@ if dead_grass then
 	awg: inherit_item('always_greener:dry_dirt_with_grass', 'dry_dirt_with_dead_grass', {
 		displayname = 'Savanna Dirt with Dead Grass',
 		description = '',
-		groups = {crumbly = 3, soil = 1},
+		groups = {crumbly = 3, soil = 1, spreading_dirt_type = 0},
 		palette = 'awg_dead_grass_colormap.png',
 		color = '#594a28',
 		tiles = {

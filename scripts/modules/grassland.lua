@@ -16,7 +16,7 @@ awg: register_node('sage', {
 		type = 'fixed',
 		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
 	},
-	groups = {plant = 1, flower = 1, snappy = 2, flammable = 1, attached_node = 1},
+	groups = {plant = 1, flower = 1, snappy = 3, flammable = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults()
 })
 
@@ -62,7 +62,7 @@ awg: register_node('clover', {
 		type = 'fixed',
 		fixed = {-0.4, -0.5, -0.4, 0.4, -0.4, 0.4}
 	},
-	groups = {plant = 1, snappy = 2, flammable = 1, attached_node = 1},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = plant_after_place
 })
@@ -84,7 +84,7 @@ awg: register_node('clover_flower', {
 		type = 'fixed',
 		fixed = {-0.4, -0.5, -0.4, 0.4, -0.4, 0.4}
 	},
-	groups = {plant = 1, snappy = 2, flammable = 1, attached_node = 1},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = plant_after_place
 })
@@ -147,7 +147,7 @@ awg: register_node('field_mushroom_1', {
 			{-0.106024, -0.404217, -0.112651, 0.106024, -0.230422, 0.112651}
 		}
 	},
-	groups = {mushroom = 1, snappy = 2, flammable = 1, attached_node = 1},
+	groups = {mushroom = 1, snappy = 3, flammable = 1, attached_node = 1},
 	sounds = default.node_sound_leaves_defaults(),
 	after_place_node = function (pos, placer, itemstack, pointed_thing)
 		local node = minetest.get_node(pos)
@@ -260,4 +260,337 @@ minetest.register_decoration({
 	y_max = 31000,
 	y_min = 1,
 	decoration = 'always_greener:field_mushroom_3',
+})
+
+local function rush_after_place (pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	node.name = 'awg:bulrush_' .. math.random(1, 2)
+	node.param2 = math.random(0, 239)
+	minetest.swap_node(pos, node)
+end
+
+awg: register_node('bulrush_1', {
+	displayname = 'Bulrushes',
+	tiles = {'awg_bulrush_1.png'},
+	use_texture_alpha = 'clip',
+	inventory_image = 'awg_bulrush_inv.png',
+	drawtype = 'mesh',
+	mesh = 'awg_bulrush.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	floodable = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = rush_after_place
+})
+
+awg: register_node('bulrush_2', {
+	tiles = {'awg_bulrush_2.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_bulrush.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	floodable = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:bulrush_1'
+})
+
+awg: register_node('bulrush_rooted_1', {
+	tiles = {'awg_bulrush_1.png', 'awg_mud.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_bulrush_rooted.obj',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	buildable_to = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {
+			{-0.35, 0.5, -0.35, 0.35, 1.5, 0.35},
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}
+		}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:bulrush_1',
+	node_dig_prediction = 'always_greener:mud',
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		minetest.set_node(pos, {name = 'always_greener:mud'})
+	end
+})
+
+awg: register_node('bulrush_rooted_2', {
+	tiles = {'awg_bulrush_2.png', 'awg_mud.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_bulrush_rooted.obj',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	buildable_to = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {
+			{-0.35, 0.5, -0.35, 0.35, 1.5, 0.35},
+			{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5}
+		}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, attached_node = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:bulrush_1',
+	node_dig_prediction = 'always_greener:mud',
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		minetest.set_node(pos, {name = 'always_greener:mud'})
+	end
+})
+
+minetest.register_decoration({
+	name = 'always_greener:bulrushes',
+	deco_type = 'simple',
+	place_on = {
+		'default:dirt', 'default:dirt_with_grass',
+		'default:dry_dirt', 'default:dry_dirt_with_grass',
+		'always_greener:mud', 'always_greener:mud_with_grass'
+	},
+	sidelen = 8,
+	fill_ratio = 0.5,
+	biomes = {
+		'taiga_ocean',
+		'taiga',
+		'grassland_ocean',
+		'grassland',
+		'snowy_grassland_ocean',
+		'snowy_grassland',
+		'coniferous_forest_ocean',
+		'coniferous_forest',
+		'deciduous_forest_ocean',
+		'deciduous_forest',
+		'savanna_ocean',
+		'savanna'
+	},
+	y_max = 1,
+	y_min = 1,
+	decoration = {
+		'always_greener:bulrush_1', 'always_greener:bulrush_2'
+	},
+	param2 = 0,
+	param2_max = 239,
+	spawn_by = 'default:water_source',
+	num_spawn_by = 1,
+})
+
+minetest.register_decoration({
+	name = 'always_greener:bulrushes_rooted',
+	deco_type = 'simple',
+	place_on = {'default:sand'},
+	place_offset_y = -1,
+	sidelen = 8,
+	fill_ratio = 1.5,
+	biomes = {
+		'taiga_ocean',
+		'taiga',
+		'grassland_ocean',
+		'grassland',
+		'snowy_grassland_ocean',
+		'snowy_grassland',
+		'coniferous_forest_ocean',
+		'coniferous_forest',
+		'deciduous_forest_ocean',
+		'deciduous_forest',
+		'savanna_ocean',
+		'savanna'
+	},
+	y_max = 0,
+	y_min = 0,
+	flags = 'force_placement',
+	decoration = {
+		'always_greener:bulrush_rooted_1', 'always_greener:bulrush_rooted_2'
+	},
+	spawn_by = {
+		'default:dirt', 'default:dirt_with_grass',
+		'default:dry_dirt', 'default:dry_dirt_with_grass',
+		'always_greener:mud', 'always_greener:mud_with_grass'
+	},
+	num_spawn_by = 1,
+	check_offset = 0
+})
+
+local function cane_after_place (pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	local node_below = minetest.get_node(pos - vector.new(0, 1, 0))
+	
+	if node_below.name == 'always_greener:cane_middle' then
+		node.param2 = node_below.param2
+	else
+		node.param2 = math.random(0, 239)
+	end
+	
+	minetest.swap_node(pos, node)
+end
+
+local cane_nodes = {
+	['always_greener:cane_bottom'] = true,
+	['always_greener:cane_middle'] = true,
+	['always_greener:cane_top'] = true
+}
+
+local function cane_after_dig (pos, _, _, digger)
+	if not digger then return end
+	
+	for i = 1, 32 do
+		local above = pos + vector.new(0, i, 0)
+		local node_above = minetest.get_node(above)
+		
+		if not cane_nodes[node_above.name] then
+			break
+		end
+		
+		if not minetest.node_dig(above, node_above, digger) then
+			break
+		end
+	end
+end
+
+awg: register_node('cane_bottom', {
+	tiles = {'awg_cane_bottom.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_cane_bottom.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:cane_middle',
+	after_dig_node = cane_after_dig
+})
+
+awg: register_node('cane_middle', {
+	displayname = 'Giant Cane',
+	tiles = {'awg_cane_middle.png'},
+	use_texture_alpha = 'clip',
+	inventory_image = 'awg_cane_inv.png',
+	drawtype = 'mesh',
+	mesh = 'awg_cane_middle.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1, stick = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = cane_after_place,
+	after_dig_node = cane_after_dig
+})
+
+awg: register_node('cane_top', {
+	displayname = 'Giant Cane Flower',
+	tiles = {'awg_cane_top.png'},
+	use_texture_alpha = 'clip',
+	inventory_image = 'awg_cane_flower_inv.png',
+	drawtype = 'mesh',
+	mesh = 'awg_cane_middle.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, snappy = 3, flammable = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = cane_after_place
+})
+
+local function grass_after_place (pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	node.name = 'awg:marshgrass_' .. math.random(1, 3)
+	node.param2 = math.random(0, 239)
+	minetest.swap_node(pos, node)
+end
+
+awg: register_node('marshgrass_1', {
+	displayname = 'Marsh Grass',
+	tiles = {'awg_marshgrass_1.png'},
+	use_texture_alpha = 'clip',
+	inventory_image = 'awg_marshgrass_inv.png',
+	drawtype = 'mesh',
+	mesh = 'awg_jungle_grass.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	floodable = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, grass = 1, snappy = 3, flammable = 1, attached_node = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	after_place_node = grass_after_place
+})
+
+awg: register_node('marshgrass_2', {
+	tiles = {'awg_marshgrass_2.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_jungle_grass.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	floodable = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, grass = 1, snappy = 3, flammable = 1, attached_node = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:marshgrass_1'
+})
+
+awg: register_node('marshgrass_3', {
+	tiles = {'awg_marshgrass_3.png'},
+	use_texture_alpha = 'clip',
+	drawtype = 'mesh',
+	mesh = 'awg_jungle_grass.obj',
+	paramtype2 = 'degrotate',
+	paramtype = 'light',
+	sunlight_propagates = true,
+	walkable = false,
+	buildable_to = true,
+	floodable = true,
+	selection_box = {
+		type = 'fixed',
+		fixed = {-0.35, -0.5, -0.35, 0.35, 0.5, 0.35}
+	},
+	groups = {plant = 1, grass = 1, snappy = 3, flammable = 1, attached_node = 1, not_in_creative_inventory = 1},
+	sounds = default.node_sound_leaves_defaults(),
+	drop = 'awg:marshgrass_1'
 })

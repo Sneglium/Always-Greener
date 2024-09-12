@@ -12,6 +12,10 @@ function awg.gettext (text, colormode, ...)
 	end
 end
 
+if minetest.settings: get_bool('awg.sub_biomes', true) then
+	minetest.register_mapgen_script(awg.path .. '/scripts/sub_biomes.lua')
+end
+
 -- General Tweaks
 awg: load_script 'grass'
 awg: load_script 'mud'
@@ -22,8 +26,6 @@ minetest.register_mapgen_script(awg.path .. '/scripts/maprotations.lua')
 
 awg: load_script 'plant_tweaks'
 awg: load_script 'tree_tweaks'
-
-minetest.register_mapgen_script(awg.path .. '/scripts/sub_biomes')
 
 -- Specific Biome Changes/Additions
 awg: load_module 'tundra'

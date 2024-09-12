@@ -62,6 +62,10 @@ awg.craft_grass_blocks (Allow Crafting Dirt With Grass) bool true
 # Integer (0-1000); default: 300
 awg.secateurs_num_uses (Secateur Durability) int 300 0 1000
 
+# Show all available cuttings in the creative inventory. May cause clutter.
+# Boolean (true/false); default: false
+awg.cuttings_list (Show Cuttings in Creative Inventory) bool false
+
 [Trees]
 
 # Enable or disable the bushier tree leaves meshes.
@@ -78,6 +82,10 @@ awg.bushes (Enable Bush Leaves Mesh) bool true
 
 [Biomes]
 
+# Turn off to completely disable the sub-biome terrain layer, preventing sub-biome generation entirely.
+# Boolean (true/false); default: true
+awg.sub_biomes (Sub-Biomes Master Toggle) bool true
+
 # Enable or disable the tundra biome overhaul.
 # Boolean (true/false); default: true
 awg.load_module_tundra (Tundra Overhaul) bool true
@@ -85,3 +93,7 @@ awg.load_module_tundra (Tundra Overhaul) bool true
 # Enable or disable the grassland biome overhaul.
 # Boolean (true/false); default: true
 awg.load_module_grassland (Grassland Overhaul) bool true
+
+# Enable or disable the marsh sub-biome for grasslands. Depends on the grassland biome overhaul.
+# Boolean (true/false); default: true
+awg.grassland_marsh (Grassland Sub-Biome: Marsh) bool true

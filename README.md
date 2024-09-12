@@ -43,6 +43,7 @@ The following settings are available:
  - *Enable Cuttings System* (`awg.cuttings`): Enable or disable the whole system.
  - *Allow Crafting Dirt With Grass* (`awg.craft_grass_blocks`): Allow crafting dirt with grass from regular grass cuttings, which will otherwise have no use.
  - *Secateur Durability* (`awg.secateurs_num_uses`): How many times the secateurs can be used.
+ - *Show Cuttings in Creative Inventory* (`awg.cuttings_list`): Show all available cuttings in the creative inventory. May cause clutter.
 
 ### Tree/Bush Changes
 
@@ -72,6 +73,12 @@ Most of the plants and similar things in MTG have been given new models and text
  - Kelp, which is now fully animated and with a rich brown color;
  - Cactus
 
+### Sub-Biomes
+
+Always Greener adds a new type of terrain generation: sub-biomes. These are sections of a larger biome with slightly (or greatly) differing ground and foliage, which are tied to the specific biome they spawn in. Every registered biome is able to have one sub-biome (but does not need to).  
+
+Sub-biomes usually add new plants not found elsewhere, and increase the overall variety of MTG's map generation without polluting the global biome pool; this means that you can still find particular biomes as easily as in the vanilla game, but there will be more environmental regions overall.
+
 ### Biome Overhauls
 
 #### Tundra Biome
@@ -82,15 +89,16 @@ Adds a bunch of new plants to the tundra biome, mostly including mosses and smal
 
 #### Grassland Biome
 
-New decorations for grasslands 
+New decorations for grasslands including clover, large sage patches, and edible field mushrooms, as well as a marshy sub-biome with rushes, reeds, and pools of water.
 
  - *Grassland Overhaul* (`awg.load_module_grassland`): Enable or disable the grassland biome overhaul.
+ - *Grassland Sub-Biome: Marsh* (`awg.grassland_marsh`): Enable or disable the marsh sub-biome for grasslands. Depends on the grassland biome overhaul.
 
 ## Licensing
 ```
 Always Greener (etcetera) (c) 2024 Hagatha (Sneglium)  
 
-License of code & data files (*.lua, *.conf, *.txt, *.html): Apache-2.0  
+License of code & data files (*.lua, *.conf, *.txt): Apache-2.0  
 https://www.apache.org/licenses/LICENSE-2.0.txt  
 see LICENSING/code.LICENSE  
 

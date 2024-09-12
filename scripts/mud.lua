@@ -110,7 +110,13 @@ minetest.register_abm {
 		
 		if water then return end
 		
-		node.name = 'awg:dried_mud'
+		if node.name == 'always_greener:mud_with_grass' then
+			node.param2 = awg.get_biome_color(pos)
+			node.name = 'default:dirt_with_grass'
+		else
+			node.name = 'always_greener:dried_mud'
+		end
+		
 		minetest.swap_node(pos, node)
 	end
 }

@@ -45,7 +45,7 @@ minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 	local min, max = vm: get_emerged_area()
 	local area = VoxelArea(min, max)
 	
-	for index in area: iterp(min, max) do
+	for index in area: iterp(minp, maxp) do
 		if grassnodes[dat[index]] then
 			p2dat[index] = math.random(0, 239)
 		end

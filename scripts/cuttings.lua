@@ -76,6 +76,8 @@ local function cutting_on_place (itemstack, placer, pointed_thing)
 	end
 end
 
+local inv = minetest.settings: get_bool('awg.cuttings_list', false)
+
 local function register_cutting (nodename, can_grow, nomask)
 	local itemname = 'always_greener:cutting_' .. string.split(nodename, ':')[2]
 	local node = minetest.registered_nodes[nodename]
@@ -84,7 +86,7 @@ local function register_cutting (nodename, can_grow, nomask)
 			description = node.description .. ' ' .. awg.gettext('Cuttings', 'normal'),
 			inventory_image = (not nomask) and ('awg_cutting.png^(' .. node.inventory_image .. '^[mask:awg_cutting_mask.png)') or 'awg_cutting.png',
 			color = node.color,
-			groups = {not_in_creative_inventory = 1, snappy = 3, attached_node = 1, crop = 1},
+			groups = {not_in_creative_inventory = inv and 0 or 1, snappy = 3, attached_node = 1, crop = 1},
 			tiles = {(not nomask) and (node.inventory_image .. '^[mask:awg_cutting_planted_mask.png^awg_cutting_planted_overlay.png') or 'awg_cutting_planted.png'},
 			sunlight_propagates = true,
 			walkable = false,
@@ -108,7 +110,7 @@ local function register_cutting (nodename, can_grow, nomask)
 			description = node.description .. ' ' .. awg.gettext('Cuttings', 'normal'),
 			inventory_image = (not nomask) and ('awg_cutting.png^(' .. node.inventory_image .. '^[mask:awg_cutting_mask.png)') or 'awg_cutting.png',
 			color = node.color,
-			groups = {not_in_creative_inventory = 1}
+			groups = {not_in_creative_inventory = inv and 0 or 1}
 		})
 	end
 	
@@ -188,8 +190,8 @@ register_cuttable('flowers:tulip_black', true, 2, nil, false)
 register_cuttable('flowers:viola', true, 2, nil, false)
 
 register_cuttable('default:fern_1', true, 2, nil, false)
-register_cuttable('default:fern_2', nil, 3, 'always_greener:cutting_fern_1')
-register_cuttable('default:fern_3', nil, 5, 'always_greener:cutting_fern_1')
+register_cuttable('default:fern_2', false, 3, 'always_greener:cutting_fern_1')
+register_cuttable('default:fern_3', false, 5, 'always_greener:cutting_fern_1')
 
 register_cuttable('default:junglegrass', true, 4, nil, false)
 register_cuttable('always_greener:jungle_grass_flowering', true, 4, nil, false)
@@ -197,8 +199,23 @@ register_cuttable('always_greener:jungle_grass_short', true, 2, nil, false)
 
 register_cuttable('default:papyrus', true, 3, nil, false)
 
-register_cuttable('always_greener:tundra_shrub', true, 2, nil, false)
-register_cuttable('always_greener:tundra_shrub_2', true, 2, nil, false)
-register_cuttable('always_greener:tundra_shrub_3', true, 4, nil, false)
-
 register_cuttable('farming:cotton_wild', true, 3, nil, false)
+
+if minetest.settings: get_bool('awg.load_module_tundra', true) then
+	register_cuttable('always_greener:tundra_shrub', true, 2, nil, false)
+	register_cuttable('always_greener:tundra_shrub_2', true, 2, nil, false)
+	register_cuttable('always_greener:tundra_shrub_3', true, 4, nil, false)
+end
+
+if minetest.settings: get_bool('awg.load_module_grassland', true) then
+	register_cuttable('always_greener:sage', true, 4, nil, false)
+	register_cuttable('always_greener:clover', true, 2, nil, false)
+	register_cuttable('always_greener:clover_flower', true, 2, nil, false)
+	
+	register_cuttable('always_greener:bulrush_1', true, 3, nil, false)
+	register_cuttable('always_greener:bulrush_2', false, 3, 'always_greener:cutting_bulrush_1')
+	
+	register_cuttable('always_greener:marshgrass_1', true, 2, nil, false)
+	register_cuttable('always_greener:marshgrass_2', false, 3, 'always_greener:cutting_marshgrass_1')
+	register_cuttable('always_greener:marshgrass_3', false, 4, 'always_greener:cutting_marshgrass_1')
+end

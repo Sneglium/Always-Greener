@@ -32,7 +32,6 @@ local air = minetest.get_content_id 'air'
 
 minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 	local dat = vm: get_data()
-	local p2dat = vm: get_param2_data()
 	
 	local min, max = vm: get_emerged_area()
 	local area = VoxelArea(min, max)
@@ -41,7 +40,7 @@ minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 	
 	for i = 1, #replacers do
 		local replacer = replacers[i]
-		for index in area: iterp(min, max) do
+		for index in area: iterp(minp, maxp) do
 			if (not repd_indices[index]) and ((not replacer.air_above) or (area: containsi(index + area.ystride) and dat[index + area.ystride] == air)) then
 				local pos = area: position(index)
 				if replacer.nodes[dat[index]] then
@@ -59,5 +58,4 @@ minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 	end
 	
 	vm: set_data(dat)
-	vm: set_param2_data(p2dat)
 end)
