@@ -537,6 +537,7 @@ awg: register_node('marshgrass_1', {
 	displayname = 'Marsh Grass',
 	tiles = {'awg_marshgrass_1.png'},
 	use_texture_alpha = 'clip',
+	waving = 1,
 	inventory_image = 'awg_marshgrass_inv.png',
 	drawtype = 'mesh',
 	mesh = 'awg_jungle_grass.obj',
@@ -558,6 +559,7 @@ awg: register_node('marshgrass_1', {
 awg: register_node('marshgrass_2', {
 	tiles = {'awg_marshgrass_2.png'},
 	use_texture_alpha = 'clip',
+	waving = 1,
 	drawtype = 'mesh',
 	mesh = 'awg_jungle_grass.obj',
 	paramtype2 = 'degrotate',
@@ -578,6 +580,7 @@ awg: register_node('marshgrass_2', {
 awg: register_node('marshgrass_3', {
 	tiles = {'awg_marshgrass_3.png'},
 	use_texture_alpha = 'clip',
+	waving = 1,
 	drawtype = 'mesh',
 	mesh = 'awg_jungle_grass.obj',
 	paramtype2 = 'degrotate',
@@ -594,6 +597,37 @@ awg: register_node('marshgrass_3', {
 	sounds = default.node_sound_leaves_defaults(),
 	drop = 'awg:marshgrass_1'
 })
+
+awg: register_item('pollen', {
+	inventory_image = 'awg_pollen.png',
+	displayname = 'Bulrush Pollen',
+	groups = {flour = 1, food = 1},
+	on_use = function(itemstack, user, pointed_thing)
+		if math.random(1, 3) == 1 then
+			itemstack: take_item(1)
+		else
+			minetest.do_item_eat(1, nil, itemstack, user, pointed_thing)
+		end
+		
+		return itemstack
+	end
+})
+
+awg: register_item('pollen_cake', {
+	inventory_image = 'awg_pollen_cake.png',
+	displayname = 'Pollen Cake',
+	groups = {food = 1},
+	on_use = minetest.item_eat(5)
+})
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'pollen_cake',
+	recipe = {
+		'always_greener:pollen', 'always_greener:pollen',
+		'always_greener:pollen', 'always_greener:pollen'
+	}
+}
 
 minetest.register_craft {
 	type = 'shapeless',
@@ -624,4 +658,13 @@ if etc.modules.mortar_and_pestle then
 	etc.register_mortar_recipe('always_greener:cane_top', 'dye:brown 8', 3, true)
 	etc.register_mortar_recipe('always_greener:clover', 'dye:dark_green 8', 3, true)
 	etc.register_mortar_recipe('always_greener:clover_flower', 'dye:white 8', 3, true)
+	
+	etc.register_mortar_recipe('always_greener:bulrush_1', 'always_greener:pollen 2', 2, true)
+else
+	minetest.register_craft {
+		type = 'shapeless',
+		output = 'always_greener:pollen',
+		recipe = {'always_greener:bulrush_1'}
+	}
 end
+
