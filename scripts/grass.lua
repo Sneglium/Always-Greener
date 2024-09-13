@@ -99,7 +99,8 @@ minetest.register_abm {
 	label = 'Grass Color Update',
 	nodenames = {
 		'default:dirt_with_grass',
-		'always_greener:dry_dirt_with_grass'
+		'always_greener:dry_dirt_with_grass',
+		'always_greener:mud_with_grass',
 	},
 	interval = 30,
 	chance = 10,

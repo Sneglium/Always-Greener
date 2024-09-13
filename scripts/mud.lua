@@ -27,10 +27,30 @@ minetest.register_craft {
 	recipe = {'awg:mud'}
 }
 
+local function grass_after_place (pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	node.param2 = awg.get_biome_color(pos)
+	minetest.set_node(pos, node)
+end
+
 awg: inherit_item('always_greener:mud', 'mud_with_grass', {
 	displayname = 'Mud With Grass',
 	description = '',
-	tiles = {'awg_grass.png^[multiply:#2d591d', 'awg_mud.png', 'awg_mud.png^(awg_dead_grass_side.png^[multiply:#2d591d)'}
+	tiles = {
+		{name = 'awg_grass.png'},
+		{name = 'awg_mud.png', color = 'white'},
+		{name = 'awg_mud.png', color = 'white'}
+	},
+	overlay_tiles = {
+		'',
+		'',
+		'awg_dead_grass_side.png'
+	},
+	use_texture_alpha = 'blend',
+	paramtype2 = 'color',
+	color = '#1a6220',
+	palette = 'awg_grass_colormap.png',
+	after_place_node = grass_after_place
 })
 
 if minetest.settings: get_bool('awg.craft_grass_blocks', true) then
