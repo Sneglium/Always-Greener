@@ -462,3 +462,13 @@ minetest.register_decoration({
 if etc.modules.farming_tweaks then
 	etc.farming_tweaks.compost_values['always_greener:jungle_grass_flowering'] = 9
 end
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'dye:magenta 4',
+	recipe = {'always_greener:jungle_grass_flowering'}
+}
+
+if etc.modules.mortar_and_pestle then
+	etc.register_mortar_recipe('always_greener:jungle_grass_flowering', 'dye:magenta 8', 3, true)
+end

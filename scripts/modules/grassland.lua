@@ -594,3 +594,34 @@ awg: register_node('marshgrass_3', {
 	sounds = default.node_sound_leaves_defaults(),
 	drop = 'awg:marshgrass_1'
 })
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'dye:violet 4',
+	recipe = {'always_greener:sage'}
+}
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'dye:brown 4',
+	recipe = {'always_greener:cane_top'}
+}
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'dye:dark_green 4',
+	recipe = {'always_greener:clover'}
+}
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'dye:white 4',
+	recipe = {'always_greener:clover_flower'}
+}
+
+if etc.modules.mortar_and_pestle then
+	etc.register_mortar_recipe('always_greener:sage', 'dye:violet 8', 2, true)
+	etc.register_mortar_recipe('always_greener:cane_top', 'dye:brown 8', 3, true)
+	etc.register_mortar_recipe('always_greener:clover', 'dye:dark_green 8', 3, true)
+	etc.register_mortar_recipe('always_greener:clover_flower', 'dye:white 8', 3, true)
+end
