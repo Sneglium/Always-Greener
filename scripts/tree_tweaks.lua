@@ -44,48 +44,53 @@ end
 
 if minetest.settings: get_bool('awg.tree_leaves', true) then
 	minetest.override_item('default:leaves', {
+		tiles = {'awg_leaves.png'},
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
-		visual_scale = 0.8
+		visual_scale = 0.95
 	})
 	
 	minetest.override_item('default:acacia_leaves', {
+		tiles = {'awg_acacia_leaves.png'},
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
-		visual_scale = 0.8
+		visual_scale = 0.95
 	})
 	
 	minetest.override_item('default:aspen_leaves', {
+		tiles = {'awg_aspen_leaves.png'},
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
-		visual_scale = 0.8
+		visual_scale = 0.95
 	})
 	
 	minetest.override_item('default:pine_needles', {
+		tiles = {'awg_pine_needles.png'},
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
-		visual_scale = 0.8
+		visual_scale = 0.95
 	})
 	
 	minetest.override_item('default:jungleleaves', {
+		tiles = {'awg_jungle_leaves.png'},
 		drawtype = 'mesh',
 		use_texture_alpha = 'clip',
 		mesh = 'awg_tree_leaves.obj',
 		paramtype2 = 'degrotate',
 		after_place_node = leaves_after_place,
-		visual_scale = 0.8
+		visual_scale = 0.95
 	})
 end
 
