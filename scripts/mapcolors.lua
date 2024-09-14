@@ -2,7 +2,6 @@
 local grassnodes = {
 	[minetest.get_content_id 'default:dirt_with_grass'] = true,
 	[minetest.get_content_id 'always_greener:dry_dirt_with_grass'] = true,
-	[minetest.get_content_id 'always_greener:mud_with_grass'] = true
 }
 
 local waternodes = {

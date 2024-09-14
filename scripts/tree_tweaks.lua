@@ -125,4 +125,3 @@ if minetest.settings: get_bool('awg.tree_leaves_climbable', true) then
 		move_resistance = 4
 	})
 end
-
