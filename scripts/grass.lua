@@ -204,6 +204,27 @@ for i, abm in pairs(minetest.registered_abms) do
 	end
 end
 
+minetest.register_abm {
+	label = 'Dead Grass to Dirt',
+	nodenames = {
+		'always_greener:dirt_with_dead_grass',
+		'always_greener:dry_dirt_with_dead_grass'
+	},
+	interval = 30,
+	chance = 15,
+	catch_up = true,
+	action = function(pos, node)
+		if node.name == 'always_greener:dry_dirt_with_dead_grass' then
+			node.param2 = awg.get_biome_color(pos)
+			node.name = 'default:dry_dirt'
+		else
+			node.name = 'default:dirt'
+		end
+		
+		minetest.swap_node(pos, node)
+	end
+}
+
 minetest.register_decoration({
 	deco_type = 'simple',
 	decoration = 'default:dirt_with_grass',

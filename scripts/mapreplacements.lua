@@ -44,13 +44,18 @@ minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 			if (not repd_indices[index]) and ((not replacer.air_above) or (area: containsi(index + area.ystride) and dat[index + area.ystride] == air)) then
 				local pos = area: position(index)
 				if replacer.nodes[dat[index]] then
-					local adjacent = minetest.find_node_near(pos, replacer.distance[1] + replacer.distance[2], replacer.adjacents)
-					if adjacent then
-						local dist = pos: distance(adjacent)
-						if dist <= replacer.distance[1] + (math.random() * replacer.distance[2]) then
-							dat[index] = replacer.replacements[dat[index]] or replacer.replacements[math.random(1, #replacer.replacements)]
-							repd_indices[index] = true
+					if replacer.adjacents then
+						local adjacent = minetest.find_node_near(pos, replacer.distance[1] + replacer.distance[2], replacer.adjacents)
+						if adjacent then
+							local dist = pos: distance(adjacent)
+							if dist <= replacer.distance[1] + (math.random() * replacer.distance[2]) then
+								dat[index] = replacer.replacements[dat[index]] or replacer.replacements[math.random(1, #replacer.replacements)]
+								repd_indices[index] = true
+							end
 						end
+					else
+						dat[index] = replacer.replacements[dat[index]] or replacer.replacements[math.random(1, #replacer.replacements)]
+						repd_indices[index] = true
 					end
 				end
 			end
