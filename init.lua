@@ -31,6 +31,9 @@ awg: load_script 'tree_tweaks'
 awg: load_module 'tundra'
 awg: load_module 'grassland'
 
+-- Plant Reproduction Stuff
+awg: load_script 'seeds'
+
 if minetest.settings: get_bool('awg.cuttings', true) then
 	awg: load_script 'cuttings'
 end

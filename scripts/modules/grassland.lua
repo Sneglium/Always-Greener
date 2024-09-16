@@ -430,11 +430,17 @@ minetest.register_decoration({
 	check_offset = 0
 })
 
+local cane_nodes = {
+	['always_greener:cane_bottom'] = true,
+	['always_greener:cane_middle'] = true,
+	['always_greener:cane_top'] = true
+}
+
 local function cane_after_place (pos, placer, itemstack, pointed_thing)
 	local node = minetest.get_node(pos)
 	local node_below = minetest.get_node(pos - vector.new(0, 1, 0))
 	
-	if node_below.name == 'always_greener:cane_middle' then
+	if cane_nodes[node_below.name] then
 		node.param2 = node_below.param2
 	else
 		node.param2 = math.random(0, 239)
@@ -442,12 +448,6 @@ local function cane_after_place (pos, placer, itemstack, pointed_thing)
 	
 	minetest.swap_node(pos, node)
 end
-
-local cane_nodes = {
-	['always_greener:cane_bottom'] = true,
-	['always_greener:cane_middle'] = true,
-	['always_greener:cane_top'] = true
-}
 
 local function cane_after_dig (pos, _, _, digger)
 	if not digger then return end
