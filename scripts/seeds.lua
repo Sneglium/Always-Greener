@@ -6,7 +6,7 @@ local function register_seed (name, inv_img, tile, displayname, description, max
 		inventory_image = inv_img,
 		wield_image = inv_img,
 		tiles = {tile},
-		groups = {seed= 1, snappy = 3, attached_node = 1, crop = 1},
+		groups = {seed = 1, snappy = 3, attached_node = 1, crop = 1, plant = 1},
 		sunlight_propagates = true,
 		walkable = false,
 		drawtype = 'plantlike',
@@ -16,6 +16,7 @@ local function register_seed (name, inv_img, tile, displayname, description, max
 		buildable_to = true,
 		place_param2 = 41,
 		drop = '',
+		node_placement_prediction = '',
 		sounds = default.node_sound_leaves_defaults(),
 		selection_box = {
 			type = 'fixed',
@@ -36,6 +37,77 @@ local function register_seed (name, inv_img, tile, displayname, description, max
 			end
 		end,
 		on_timer = grow_func
+	})
+end
+
+local function register_seed_rooted (place_node, name, inv_img, tile, displayname, description, max_growtime, min_height, max_height, grow_func)
+	awg: register_node('seed_' .. name, {
+		displayname = displayname,
+		description = description,
+		inventory_image = inv_img,
+		wield_image = inv_img,
+		tiles = {minetest.registered_nodes[place_node].tiles[1]},
+		special_tiles = {tile},
+		groups = {seed = 1, snappy = 3, crop = 1, plant = 1},
+		sunlight_propagates = true,
+		walkable = false,
+		drawtype = 'plantlike_rooted',
+		paramtype = 'light',
+		paramtype2 = 'meshoptions',
+		drop = '',
+		node_placement_prediction = '',
+		node_dig_prediction = place_node,
+		sounds = default.node_sound_leaves_defaults(),
+		selection_box = {
+			type = 'fixed',
+			fixed = {
+					{-0.5, -0.5, -0.5, 0.5, 0.5, 0.5},
+					{-2/16, 0.5, -2/16, 2/16, 1.25, 2/16},
+			},
+		},
+		on_construct = function (pos)
+			minetest.get_node_timer(pos): start(math.random(max_growtime*0.3, max_growtime))
+		end,
+		on_timer = grow_func,
+		on_place = function(itemstack, placer, pointed_thing)
+		if pointed_thing.type == 'node' and not (placer and placer:is_player()
+				and placer:get_player_control().sneak) then
+			local node_ptu = minetest.get_node(pointed_thing.under)
+			local def_ptu = minetest.registered_nodes[node_ptu.name]
+			if def_ptu and def_ptu.on_rightclick then
+				return def_ptu.on_rightclick(pointed_thing.under, node_ptu, placer,
+					itemstack, pointed_thing)
+			end
+		end
+
+		local pos = pointed_thing.under
+		if minetest.get_node(pos).name ~= 'default:sand' then
+			return itemstack
+		end
+
+		local height = math.random(min_height, max_height)
+		local pos_top = {x = pos.x, y = pos.y + height, z = pos.z}
+		local node_top = minetest.get_node(pos_top)
+		local def_top = minetest.registered_nodes[node_top.name]
+		local player_name = placer:get_player_name()
+
+		if def_top and def_top.liquidtype == 'source' and
+				minetest.get_item_group(node_top.name, "water") > 0 then
+			if not minetest.is_protected(pos, player_name) and not minetest.is_protected(pos_top, player_name) then
+				minetest.set_node(pos, {name = 'always_greener:seed_' .. name, param2 = 41})
+				local meta = minetest.get_meta(pos)
+				meta: set_int('height', height * 16)
+				if not minetest.is_creative_enabled(player_name) then
+					itemstack:take_item()
+				end
+			end
+		end
+
+		return itemstack
+	end,
+	after_dig_node = function(pos, oldnode, oldmetadata, digger)
+		minetest.set_node(pos, {name = place_node})
+	end
 	})
 end
 
@@ -136,4 +208,25 @@ if minetest.settings: get_bool('awg.load_module_grassland', true) then
 	}
 end
 
+register_seed_rooted(
+	'default:sand',
+	'kelp',
+	'awg_seed_kelp.png',
+	'awg_seed_kelp.png',
+	'Kelp Sporophyte',
+	'Grows into kelp. Plant on sand under deep water.',
+	400,
+	4,
+	6,
+	function (pos)
+		local meta = minetest.get_meta(pos)
+		local height = meta: get_int 'height'
+		minetest.set_node(pos, {name = 'default:sand_with_kelp', param2 = height})
+	end
+)
 
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'awg:seed_kelp 5',
+	recipe = {'default:sand_with_kelp'}
+}

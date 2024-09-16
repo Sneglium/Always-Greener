@@ -442,7 +442,9 @@ etc.smart_override_item('default:coral_cyan', {
 	use_texture_alpha = 'clip',
 	waving = 0,
 	inventory_image = 'awg_coral_cyan_inv.png',
-	wield_image = 'awg_coral_cyan_inv.png'
+	wield_image = 'awg_coral_cyan_inv.png',
+	node_placement_prediction = '',
+	node_dig_prediction = 'default:coral_skeleton'
 })
 
 etc.smart_override_item('default:coral_pink', {
@@ -452,7 +454,9 @@ etc.smart_override_item('default:coral_pink', {
 	use_texture_alpha = 'clip',
 	waving = 0,
 	inventory_image = 'awg_coral_pink_inv.png',
-	wield_image = 'awg_coral_pink_inv.png'
+	wield_image = 'awg_coral_pink_inv.png',
+	node_placement_prediction = '',
+	node_dig_prediction = 'default:coral_skeleton'
 })
 
 etc.smart_override_item('default:coral_green', {
@@ -462,7 +466,9 @@ etc.smart_override_item('default:coral_green', {
 	use_texture_alpha = 'clip',
 	waving = 0,
 	inventory_image = 'awg_coral_green_inv.png',
-	wield_image = 'awg_coral_green_inv.png'
+	wield_image = 'awg_coral_green_inv.png',
+	node_placement_prediction = '',
+	node_dig_prediction = 'default:coral_skeleton'
 })
 
 etc.smart_override_item('flowers:waterlily_waving', {
@@ -554,7 +560,9 @@ etc.smart_override_item('default:sand_with_kelp', {
 			length = 4
 		}
 	}},
-	groups = {plant = 1}
+	groups = {plant = 1},
+	node_placement_prediction = '',
+	node_dig_prediction = 'default:sand'
 })
 
 etc.smart_override_item('default:cactus', {
