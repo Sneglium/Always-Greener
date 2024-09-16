@@ -81,7 +81,7 @@ local function register_seed_rooted (place_node, name, inv_img, tile, displaynam
 		end
 
 		local pos = pointed_thing.under
-		if minetest.get_node(pos).name ~= 'default:sand' then
+		if minetest.get_node(pos).name ~= place_node then
 			return itemstack
 		end
 
@@ -229,4 +229,67 @@ minetest.register_craft {
 	type = 'shapeless',
 	output = 'awg:seed_kelp 5',
 	recipe = {'default:sand_with_kelp'}
+}
+
+register_seed_rooted(
+	'default:coral_skeleton',
+	'coral_green',
+	'awg_seed_coral_green_inv.png',
+	'awg_seed_coral_green.png',
+	'Green Coral Polyp',
+	'Grows into green coral. Plant on coral skeleton underwater.',
+	800,
+	1,
+	1,
+	function (pos)
+		minetest.set_node(pos, {name = 'default:coral_green'})
+	end
+)
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'awg:seed_coral_green 6',
+	recipe = {'default:coral_green'}
+}
+
+register_seed_rooted(
+	'default:coral_skeleton',
+	'coral_pink',
+	'awg_seed_coral_pink_inv.png',
+	'awg_seed_coral_pink.png',
+	'Pink Coral Polyp',
+	'Grows into pink coral. Plant on coral skeleton underwater.',
+	800,
+	1,
+	1,
+	function (pos)
+		minetest.set_node(pos, {name = 'default:coral_pink'})
+	end
+)
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'awg:seed_coral_pink 6',
+	recipe = {'default:coral_pink'}
+}
+
+register_seed_rooted(
+	'default:coral_skeleton',
+	'coral_cyan',
+	'awg_seed_coral_cyan_inv.png',
+	'awg_seed_coral_cyan.png',
+	'Cyan Coral Polyp',
+	'Grows into cyan coral. Plant on coral skeleton underwater.',
+	800,
+	1,
+	1,
+	function (pos)
+		minetest.set_node(pos, {name = 'default:coral_cyan'})
+	end
+)
+
+minetest.register_craft {
+	type = 'shapeless',
+	output = 'awg:seed_coral_cyan 6',
+	recipe = {'default:coral_cyan'}
 }
