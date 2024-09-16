@@ -50,7 +50,6 @@ local function register_seed_rooted (place_node, name, inv_img, tile, displaynam
 		special_tiles = {tile},
 		groups = {seed = 1, snappy = 3, crop = 1, plant = 1},
 		sunlight_propagates = true,
-		walkable = false,
 		drawtype = 'plantlike_rooted',
 		paramtype = 'light',
 		paramtype2 = 'meshoptions',
