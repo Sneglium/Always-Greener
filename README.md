@@ -100,6 +100,13 @@ New decorations for grasslands including clover, large sage patches, and edible 
 
 Basic support is provided for this mod, giving the new trees fluffy leaves if enabled.
 
+#### Extra Biomes
+
+The following Always Greener features also apply to this mod when installed:
+
+ - Fluffy tree leaves
+ - Biome colored grass
+
 ## Licensing
 ```
 Always Greener (etcetera) (c) 2024 Hagatha (Sneglium)  

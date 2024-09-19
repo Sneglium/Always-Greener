@@ -38,6 +38,31 @@ local grassnodes = {
 	[minetest.get_content_id 'default:jungleleaves'] = true
 }
 
+if minetest.get_modpath 'ebiomes' and minetest.settings: get_bool('awg.load_module_ebiomes', true) then
+	grassnodes[minetest.get_content_id 'ebiomes:afzelia_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:alder_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:ash_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:bamboo_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:beech_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:birch_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:chestnut_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:cypress_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:downy_birch_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:hornbeam_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:limba_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:maple_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:mizunara_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:oak_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:olive_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:pear_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:quince_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:siri_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:stoneoak_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:sugi_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:tamarind_leaves'] = true
+	grassnodes[minetest.get_content_id 'ebiomes:willow_leaves'] = true
+end
+
 minetest.register_on_generated(function(vm, minp, maxp, blockseed)
 	local dat = vm: get_data()
 	local p2dat = vm: get_param2_data()

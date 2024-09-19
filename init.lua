@@ -39,7 +39,5 @@ if minetest.settings: get_bool('awg.cuttings', true) then
 end
 
 -- Mod Support
-
-if minetest.get_modpath 'moretrees' and minetest.settings: get_bool('awg.moretrees', true) then
-	awg: load_script 'moretrees'
-end
+awg: load_module('moretrees', 'moretrees')
+awg: load_module('ebiomes', 'ebiomes')

@@ -28,6 +28,34 @@ local replacers = {
 	}
 }
 
+if minetest.get_modpath 'ebiomes' and minetest.settings: get_bool('awg.load_module_ebiomes', true) then
+	table.insert(replacers, {
+		nodes = {
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_cold'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_med'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe_cold'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe_warm'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_swamp'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_grass_warm'] = true,
+			[minetest.get_content_id 'ebiomes:dirt_with_jungle_savanna_grass'] = true
+		},
+		replacements = {
+			minetest.get_content_id 'default:dirt_with_grass'
+		}
+	})
+	table.insert(replacers, {
+		nodes = {
+			[minetest.get_content_id 'ebiomes:dry_dirt_with_grass_arid'] = true,
+			[minetest.get_content_id 'ebiomes:dry_dirt_with_grass_arid_cool'] = true,
+			[minetest.get_content_id 'ebiomes:dry_dirt_with_humid_savanna_grass'] = true
+		},
+		replacements = {
+			minetest.get_content_id 'always_greener:dry_dirt_with_grass'
+		}
+	})
+end
+
 local air = minetest.get_content_id 'air'
 
 minetest.register_on_generated(function(vm, minp, maxp, blockseed)

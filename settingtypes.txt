@@ -102,4 +102,8 @@ awg.grassland_marsh (Grassland Sub-Biome: Marsh) bool true
 
 # Enable or disable support for the More Trees mod.
 # Boolean (true/false); default: true
-awg.moretrees (More Trees Support) bool true
+awg.load_module_moretrees (More Trees Support) bool true
+
+# Enable or disable support for the Extra Biomes mod.
+# Boolean (true/false); default: true
+awg.load_module_ebiomes (Extra Biomes Support) bool true
