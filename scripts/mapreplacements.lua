@@ -10,7 +10,7 @@ local replacers = {
 			[minetest.get_content_id 'always_greener:dry_dirt_with_dead_grass'] = true,
 			[minetest.get_content_id 'default:dirt_with_coniferous_litter'] = true,
 			[minetest.get_content_id 'default:dirt_with_rainforest_litter'] = true,
-			[minetest.get_content_id 'default:dirt_with_snow'] = true
+			[minetest.get_content_id 'default:dirt_with_snow'] = true,
 		},
 		distance = {1.5, 1},
 		adjacents = {
@@ -54,6 +54,15 @@ if minetest.get_modpath 'ebiomes' and minetest.settings: get_bool('awg.load_modu
 			minetest.get_content_id 'always_greener:dry_dirt_with_grass'
 		}
 	})
+	
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_cold'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_med'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe_cold'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_steppe_warm'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_swamp'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_grass_warm'] = true
+	replacers[1].nodes[minetest.get_content_id 'ebiomes:dirt_with_jungle_savanna_grass'] = true
 end
 
 local air = minetest.get_content_id 'air'
