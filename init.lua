@@ -37,3 +37,9 @@ awg: load_script 'seeds'
 if minetest.settings: get_bool('awg.cuttings', true) then
 	awg: load_script 'cuttings'
 end
+
+-- Mod Support
+
+if minetest.get_modpath 'moretrees' and minetest.settings: get_bool('awg.moretrees', true) then
+	awg: load_script 'moretrees'
+end

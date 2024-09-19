@@ -97,3 +97,9 @@ awg.load_module_grassland (Grassland Overhaul) bool true
 # Enable or disable the marsh sub-biome for grasslands. Depends on the grassland biome overhaul.
 # Boolean (true/false); default: true
 awg.grassland_marsh (Grassland Sub-Biome: Marsh) bool true
+
+[Mod Support]
+
+# Enable or disable support for the More Trees mod.
+# Boolean (true/false); default: true
+awg.moretrees (More Trees Support) bool true

@@ -94,6 +94,12 @@ New decorations for grasslands including clover, large sage patches, and edible 
  - *Grassland Overhaul* (`awg.load_module_grassland`): Enable or disable the grassland biome overhaul.
  - *Grassland Sub-Biome: Marsh* (`awg.grassland_marsh`): Enable or disable the marsh sub-biome for grasslands. Depends on the grassland biome overhaul.
 
+### Mod Support
+
+#### More Trees!
+
+Basic support is provided for this mod, giving the new trees fluffy leaves if enabled.
+
 ## Licensing
 ```
 Always Greener (etcetera) (c) 2024 Hagatha (Sneglium)  
