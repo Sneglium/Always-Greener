@@ -624,8 +624,8 @@ minetest.register_craft {
 	type = 'shapeless',
 	output = 'pollen_cake',
 	recipe = {
-		'always_greener:pollen', 'always_greener:pollen',
-		'always_greener:pollen', 'always_greener:pollen'
+		'always_greener:pollen', 'always_greener:pollen', 'always_greener:pollen',
+		'always_greener:pollen', 'always_greener:pollen', 'always_greener:pollen'
 	}
 }
 
