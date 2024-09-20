@@ -617,7 +617,7 @@ awg: register_item('pollen_cake', {
 	inventory_image = 'awg_pollen_cake.png',
 	displayname = 'Pollen Cake',
 	groups = {food = 1},
-	on_use = minetest.item_eat(5)
+	on_use = minetest.item_eat(6)
 })
 
 minetest.register_craft {
@@ -659,11 +659,11 @@ if etc.modules.mortar_and_pestle then
 	etc.register_mortar_recipe('always_greener:clover', 'dye:dark_green 8', 3, true)
 	etc.register_mortar_recipe('always_greener:clover_flower', 'dye:white 8', 3, true)
 	
-	etc.register_mortar_recipe('always_greener:bulrush_1', 'always_greener:pollen 2', 2, true)
+	etc.register_mortar_recipe('always_greener:bulrush_1', 'always_greener:pollen 3', 2, true)
 else
 	minetest.register_craft {
 		type = 'shapeless',
-		output = 'always_greener:pollen',
+		output = 'always_greener:pollen 2',
 		recipe = {'always_greener:bulrush_1'}
 	}
 end
