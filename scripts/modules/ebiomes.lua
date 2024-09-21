@@ -65,9 +65,6 @@ end
 local grass = {
 	'ebiomes:dirt_with_grass_cold',
 	'ebiomes:dirt_with_grass_med',
-	'ebiomes:dirt_with_grass_steppe',
-	'ebiomes:dirt_with_grass_steppe_cold',
-	'ebiomes:dirt_with_grass_steppe_warm',
 	'ebiomes:dirt_with_grass_swamp',
 	'ebiomes:dirt_with_grass_warm',
 	'ebiomes:dirt_with_jungle_savanna_grass'
@@ -93,13 +90,10 @@ end
 
 local tallgrass = {
 	{'ebiomes:grass_arid_', '#a2a445'},
+	{'ebiomes:grass_bog_', '#9db11e'},
 	{'ebiomes:grass_arid_cool_', '#9da83d'},
-	{'ebiomes:grass_bog_', '#41661a'},
 	{'ebiomes:grass_cold_', '#3f882b'},
 	{'ebiomes:grass_med_', '#6c9020'},
-	{'ebiomes:grass_steppe_', '#84842e'},
-	{'ebiomes:grass_steppe_cold_', '#556c3a'},
-	{'ebiomes:grass_steppe_warm_', '#83ad40'},
 	{'ebiomes:grass_swamp_', '#26591e'},
 	{'ebiomes:grass_warm_', '#82a433'},
 	{'ebiomes:humid_savanna_grass_', '#a0b328'},
