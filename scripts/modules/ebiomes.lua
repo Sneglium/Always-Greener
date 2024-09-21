@@ -90,3 +90,41 @@ for i = 1, #dry_grass do
 		etc.smart_override_item(dry_grass[i], {groups = {not_in_creative_inventory = 1}})
 	end
 end
+
+local tallgrass = {
+	{'ebiomes:grass_arid_', '#a2a445'},
+	{'ebiomes:grass_arid_cool_', '#9da83d'},
+	{'ebiomes:grass_bog_', '#41661a'},
+	{'ebiomes:grass_cold_', '#3f882b'},
+	{'ebiomes:grass_med_', '#6c9020'},
+	{'ebiomes:grass_steppe_', '#84842e'},
+	{'ebiomes:grass_steppe_cold_', '#556c3a'},
+	{'ebiomes:grass_steppe_warm_', '#83ad40'},
+	{'ebiomes:grass_swamp_', '#26591e'},
+	{'ebiomes:grass_warm_', '#82a433'},
+	{'ebiomes:humid_savanna_grass_', '#a0b328'},
+	{'ebiomes:jungle_savanna_grass_', '#5f7014'}
+}
+
+local function tallgrass_after_place (name) return function (pos, placer, itemstack, pointed_thing)
+	local node = minetest.get_node(pos)
+	node.name = name .. math.random(1, 5)
+	node.param2 = math.random(0, 239)
+	minetest.swap_node(pos, node)
+end end
+
+for i = 1, #tallgrass do
+	for j = 1, 5 do
+		if minetest.registered_nodes[tallgrass[i][1]..j] then
+			etc.smart_override_item(tallgrass[i][1]..j, {
+				drawtype = 'mesh',
+				mesh = 'awg_grass.obj',
+				tiles = {'awg_grass_'..j..'.png^[multiply:'..tallgrass[i][2]},
+				paramtype2 = 'degrotate',
+				floodable = true,
+				after_place_node = tallgrass_after_place(tallgrass[i][1]),
+				groups = {plant = 1}
+			}, {'wield_image', 'on_place'})
+		end
+	end
+end
